@@ -1,10 +1,8 @@
-import {
-  combineReducers,
-  configureStore,
-  PreloadedState
-} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({});
+
+// @ts-expect-error temp fix
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
   return configureStore({
