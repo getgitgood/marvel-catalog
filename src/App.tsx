@@ -7,6 +7,8 @@ import {
 
 import MainContent from './components/MainContent';
 import Catalog from './pages/Catalog';
+import { Provider } from 'react-redux';
+import { setupStore } from './store';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +20,12 @@ const router = createBrowserRouter(
   )
 );
 
+const store = setupStore();
+
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
