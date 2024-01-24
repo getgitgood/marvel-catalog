@@ -1,5 +1,6 @@
 @use '../node_modules/normalize.css/normalize.css';
 
-main {
-  height: 100%;
+#root {
+  display: flex;
+  flex-direction: column;
 }
