@@ -1,24 +1,33 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
-  @use '../node_modules/normalize.css/normalize.css';
   @use url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
-
   html {
-    height: 100%;
     font-size: 20px;
     font-family: 'Roboto Condensed', sans-serif;
+    color: ${({ theme }) => theme.white};
+    height: 100%;
   }
 
   body {
+    height: 100%;
+    background-color: ${({ theme }) => theme.grey};
+  }
+
+  #root {
     height: 100%;
     display: flex;
     flex-direction: column;
   }
 
-  .header {
-    background-color: #202020;
+  button {
+    cursor: pointer;
+  }
+
+  main {
+    padding: 1em;
+    height: 100%;
   }
 
   a {
@@ -34,11 +43,6 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
       font-size: 0.7em;
     }
   }
-  //red: #ED1D24;
-  // white: #fff;
-  // black: #000;
-  // grey: #202020;
-  // hover: #767676;
 `;
 
 export const theme = {
@@ -47,7 +51,8 @@ export const theme = {
   grey: '#202020',
   hover: '#767676',
   white: '#fff',
-  mobile: '550px'
+  mobile: '550px',
+  borderRadius: '0.25em'
 };
 
 export default GlobalStyle;

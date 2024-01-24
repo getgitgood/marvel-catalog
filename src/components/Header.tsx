@@ -7,7 +7,7 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0.5em;
-
+  background-color: ${({ theme }) => theme.black};
   .navigation {
     display: flex;
     justify-content: space-around;
@@ -55,7 +55,7 @@ export default function Header() {
         <img className="logo_img" src={imgURL} alt="logo" />
       </a>
       <nav className="navigation">
-        <Link to={'/'} className="link header_link">
+        <Link to={'catalog'} className="link header_link">
           Каталог
         </Link>
         <Link to={'purchased'} className="link header_link">
