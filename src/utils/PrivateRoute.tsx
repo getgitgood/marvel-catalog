@@ -9,17 +9,17 @@ export default function PrivateRoute({
   redirectPath
 }: PrivateRouteProps) {
   const navigate = useNavigate();
-  const { isUserSignIn } = useAppSelector((state) => state.project);
+  const { isAuthenticated } = useAppSelector((state) => state.project);
 
-  const isRedirected = isUserSignIn !== null;
+  const isRedirected = isAuthenticated !== null;
 
   useEffect(() => {
     if (isRedirected) {
       navigate(redirectPath);
     }
-  }, [isUserSignIn, navigate, redirectPath, isRedirected]);
+  }, [isAuthenticated, navigate, redirectPath, isRedirected]);
 
-  if (isUserSignIn === null) {
+  if (isAuthenticated === null) {
     return <Loader />;
   }
 

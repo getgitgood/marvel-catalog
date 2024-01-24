@@ -1,14 +1,25 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  configureStore,
+  PreloadedStateShapeFromReducersMapObject
+} from '@reduxjs/toolkit';
 
-const rootReducer = combineReducers({});
+import { marvelApi } from './features/apiSlice';
+import projectReducer from './features/projectSlice';
 
-// @ts-expect-error temp fix
+const rootReducer = combineReducers({
+  project: projectReducer,
+  [marvelApi.reducerPath]: marvelApi.reducer
+});
 
-export function setupStore(preloadedState?: PreloadedState<RootState>) {
+export function setupStore(
+  preloadedState?: PreloadedStateShapeFromReducersMapObject<RootState>
+) {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(marvelApi.middleware)
   });
 }
 
