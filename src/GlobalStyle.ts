@@ -43,6 +43,25 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
       font-size: 0.7em;
     }
   }
+  ::-webkit-scrollbar {
+    width: 0.25em;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.black};
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    transition: background-color 1s ease;
+  }
+  
+  :hover::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.lightgrey};
+    border-radius: 5px;
+    width: 0.35em;
+    cursor: pointer;
+  }
 `;
 
 export const theme = {
@@ -51,7 +70,8 @@ export const theme = {
   grey: '#202020',
   hover: '#767676',
   white: '#fff',
-  mobile: '550px',
+  lightgrey: '#d3d3d3',
+  mobile: '585px',
   borderRadius: '0.25em'
 };
 

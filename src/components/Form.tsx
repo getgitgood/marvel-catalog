@@ -1,27 +1,33 @@
 import { styled } from 'styled-components';
-import { FormProps } from '../types';
-import Label from './Label';
+import { FormComponentProps } from '../types';
 import Input from './Input';
 import Button from './Button';
+import { FormEvent } from 'react';
+import { Form } from 'react-router-dom';
 
-const StyledForm = styled.form`
+const StyledForm = styled(Form)`
   display: flex;
   justify-content: center;
   gap: 0.5em;
 `;
 
-export default function Form({
+export default function FormComponent({
   buttonText,
-  labelText,
   buttonType,
   inputId,
   inputType,
-  htmlFor,
-  placeholder
-}: FormProps) {
+  placeholder,
+  setCurrentSearch
+}: FormComponentProps) {
+  const submitForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { elements } = e.currentTarget;
+    const { value } = elements.namedItem('search') as HTMLInputElement;
+    setCurrentSearch!(value);
+  };
+
   return (
-    <StyledForm>
-      <Label {...{ htmlFor, labelText }} />
+    <StyledForm onSubmit={submitForm}>
       <Input {...{ inputId, inputType, placeholder }} />
       <Button {...{ buttonText, buttonType }} />
     </StyledForm>
