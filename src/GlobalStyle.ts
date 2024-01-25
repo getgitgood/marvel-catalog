@@ -11,14 +11,10 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
   }
 
   body {
-    height: 100%;
-    background-color: ${({ theme }) => theme.grey};
-  }
-
-  #root {
-    height: 100%;
     display: flex;
     flex-direction: column;
+
+    position: relative;
   }
 
   button {

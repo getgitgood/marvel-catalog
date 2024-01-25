@@ -7,6 +7,10 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0.5em;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background-color: ${({ theme }) => theme.black};
   .navigation {
     display: flex;
