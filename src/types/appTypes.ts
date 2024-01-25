@@ -15,6 +15,7 @@ export type InputProps = {
   // setState?: (value: string) => void;
   placeholder?: string;
   inputType?: string;
+  labelText?: string;
 };
 
 export type LabelProps = {
@@ -22,4 +23,11 @@ export type LabelProps = {
   labelText?: string;
 };
 
-export type FormProps = ButtonProps & InputProps & LabelProps;
+export type FormProps = {
+  setCurrentSearch?: (value: string) => void;
+};
+
+export type FormComponentProps = ButtonProps &
+  InputProps &
+  LabelProps &
+  FormProps;

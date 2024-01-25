@@ -9,9 +9,13 @@ const StyledInput = styled.input`
 export default function Input({
   inputId,
   placeholder,
-  inputType = 'text'
+  inputType = 'text',
+  labelText = ''
 }: InputProps) {
   return (
-    <StyledInput id={inputId} placeholder={placeholder} type={inputType} />
+    <>
+      <label htmlFor={inputId}>{labelText}</label>
+      <StyledInput id={inputId} placeholder={placeholder} type={inputType} />
+    </>
   );
 }

@@ -1,14 +1,17 @@
 import { styled } from 'styled-components';
 import Form from '../components/Form';
 import { useGetComicByTitleQuery } from '../features/apiSlice';
+import Content from '../components/Content';
+import { useState } from 'react';
 
 const Section = styled.section`
   height: 100%;
 `;
 
-const Content = styled.div``;
 export default function Catalog() {
-  const { data, isFetching, isError, error } = useGetComicByTitleQuery('hulk');
+  const [currentSearch, setCurrentSearch] = useState('');
+  const { data, isFetching, isError, error } =
+    useGetComicByTitleQuery(currentSearch);
   return (
     <Section>
       <Form
@@ -16,10 +19,11 @@ export default function Catalog() {
           inputId: 'search',
           htmlFor: 'search',
           buttonText: 'Найти',
-          placeholder: 'Название комикса'
+          placeholder: 'Название комикса',
+          setCurrentSearch
         }}
       />
-      <Content />
+      <Content {...{ data, isFetching, isError, error }} />
     </Section>
   );
 }

@@ -41,8 +41,8 @@ const StyledHeader = styled.header`
     .logo_img {
       width: 5.5em;
 
-      @media screen and (max-width: 550px) {
-        width: 2.5em;
+      @media screen and (max-width: ${({ theme }) => theme.mobile}) {
+        width: 4.5em;
       }
     }
   }
