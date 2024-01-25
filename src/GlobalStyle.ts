@@ -13,8 +13,9 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
   body {
     display: flex;
     flex-direction: column;
-
     position: relative;
+    height: 100%;
+    background-color: ${({ theme }) => theme.grey};
   }
 
   button {
@@ -23,7 +24,6 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
 
   main {
     padding: 1em;
-    height: 100%;
   }
 
   a {
