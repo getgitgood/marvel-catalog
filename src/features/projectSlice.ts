@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Comic, ProjectSlice } from '../types';
 
 const initialState = <ProjectSlice>{
-  catalogCards: <Comic[]>[]
+  catalogCards: <Comic[]>[],
+  purchasedCards: <Comic[]>[],
+  favoriteCards: <Comic[]>[]
 };
 
 const projectSlice = createSlice({
@@ -14,10 +16,25 @@ const projectSlice = createSlice({
     },
     updateCatalogCards(state, { payload }) {
       state.catalogCards = payload;
+    },
+    addToPurchasedCards(state, { payload }) {
+      state.purchasedCards.push(payload);
+    },
+    addToFavoriteCards(state, { payload }) {
+      state.favoriteCards.push(payload);
+    },
+    removeFromFavoriteCards(state, { payload }) {
+      state.favoriteCards.filter((card) => card.id !== payload);
     }
   }
 });
 
-export const { updateUserStatus, updateCatalogCards } = projectSlice.actions;
+export const {
+  updateUserStatus,
+  updateCatalogCards,
+  addToPurchasedCards,
+  addToFavoriteCards,
+  removeFromFavoriteCards
+} = projectSlice.actions;
 
 export default projectSlice.reducer;

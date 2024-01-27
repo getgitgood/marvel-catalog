@@ -7,6 +7,7 @@ export const StyledContent = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 1 1 auto;
 `;
 
 export const StyledGrid = styled.div`

@@ -16,8 +16,6 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
   }
   
   body {
-    display: flex;
-    flex-direction: column;
     position: relative;
     background-color: ${({ theme }) => theme.blue};
     height: 100%;

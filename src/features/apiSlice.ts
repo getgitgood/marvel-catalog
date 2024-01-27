@@ -28,13 +28,11 @@ export const marvelApi = createApi({
       },
 
       transformResponse: (data: ApiResponse) => {
-        const { offset, limit, total, count, results } = data.data;
+        const { limit, total, results } = data.data;
         return {
           pagination: {
-            offset: offset,
             limit: limit,
-            total: total,
-            count: count
+            total: total
           },
           results: results
         };

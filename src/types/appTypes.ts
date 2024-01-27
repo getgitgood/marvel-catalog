@@ -27,7 +27,7 @@ export type ButtonsStateProps = {
 
 export type InputProps = {
   inputId: string;
-  // setState?: (value: string) => void;
+  setComicsTitle?: (value: string) => void;
   placeholder?: string;
   inputType?: string;
   labelText?: string;
@@ -55,9 +55,12 @@ export type FormComponentProps = ButtonProps &
 export interface ProjectSlice {
   isAuthenticated: boolean | null;
   catalogCards: Comic[];
+  favoriteCards: Comic[];
+  purchasedCards: Comic[];
 }
 
 export type PaginationStateProps = {
   limit: number;
   offset: number;
+  total: number;
 };

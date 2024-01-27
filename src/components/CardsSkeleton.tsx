@@ -57,7 +57,7 @@ export default function CardsSkeleton({
   for (let i = 0; i < cardsNumber; i += 1) {
     cards.push(
       <StyledCardWrapper key={i}>
-        <SkeletonCard key={i} />
+        <SkeletonCard key={i + 1} />
       </StyledCardWrapper>
     );
   }
