@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import { Dispatch, ReactNode, SetStateAction, MouseEvent } from 'react';
+import { Comic, ComicPrice } from './apiTypes';
 
 export type PrivateRouteProps = {
   children: ReactNode;
@@ -6,8 +7,22 @@ export type PrivateRouteProps = {
 };
 
 export type ButtonProps = {
-  buttonText: string;
+  buttonText?: string;
   buttonType?: 'button' | 'submit' | 'reset' | undefined;
+  isDisabled?: boolean;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  className?: string;
+};
+
+export type PricesProps<T> = {
+  prices: ComicPrice[];
+  setButtonsState: Dispatch<SetStateAction<T>>;
+};
+
+export type ButtonsStateProps = {
+  isPurchaseDisabled: boolean;
+  isFavoriteAdded: boolean;
+  isPurchased: boolean;
 };
 
 export type InputProps = {
@@ -31,3 +46,8 @@ export type FormComponentProps = ButtonProps &
   InputProps &
   LabelProps &
   FormProps;
+
+export interface ProjectSlice {
+  isAuthenticated: boolean | null;
+  catalogCards: Comic[];
+}

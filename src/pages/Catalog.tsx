@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import Form from '../components/Form';
-import { useGetComicByTitleQuery } from '../features/apiSlice';
+import { useGetComicsByTitleQuery } from '../features/apiSlice';
 import Content from '../components/Content';
 import { useState } from 'react';
 
@@ -11,7 +11,7 @@ const Section = styled.section`
 export default function Catalog() {
   const [currentSearch, setCurrentSearch] = useState('');
   const { data, isFetching, isError, error } =
-    useGetComicByTitleQuery(currentSearch);
+    useGetComicsByTitleQuery(currentSearch);
   return (
     <Section>
       <Form

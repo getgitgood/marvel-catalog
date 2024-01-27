@@ -12,11 +12,17 @@ const StyledHeader = styled.header`
   top: 0;
   z-index: 100;
   background-color: ${({ theme }) => theme.black};
+
   .navigation {
     display: flex;
     justify-content: space-around;
-    width: 30%;
+    width: 40%;
+
+    @media (max-width: ${({ theme }) => theme.laptop}) {
+      width: 90%;
+    }
   }
+
   .header_link {
     position: relative;
 
@@ -56,7 +62,7 @@ export default function Header() {
   return (
     <StyledHeader className="header">
       <a className="logo_link" href="#">
-        <img className="logo_img" src={imgURL} alt="logo" />
+        <img className="logo_img" src={imgURL} alt="marvel logo" />
       </a>
       <nav className="navigation">
         <Link to={'catalog'} className="link header_link">

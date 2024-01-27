@@ -1,9 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import md5 from 'md5';
-import { ApiResponse, RequestResults } from '../types';
-
-const PRIVATE_API_KEY = import.meta.env.VITE_PRIVATE_API_KEY;
-const PUBLIC_API_KEY = import.meta.env.VITE_PUBLIC_API_KEY;
+import { ApiResponse, Comic, RequestResults } from '../types';
+import getHashString from '../utils/getHashString';
 
 export const marvelApi = createApi({
   reducerPath: 'projectApi',
@@ -11,19 +8,17 @@ export const marvelApi = createApi({
     baseUrl: 'https://gateway.marvel.com/v1/public'
   }),
   endpoints: (builder) => ({
-    getComicByTitle: builder.query<RequestResults, string>({
+    getComicsByTitle: builder.query<RequestResults, string>({
       query: (title) => {
         const processedTitle = title.toLowerCase().trim().replace(/ /g, '-');
 
-        const timestamp = Date.now();
-        const seed = timestamp + PRIVATE_API_KEY + PUBLIC_API_KEY;
-        const hashString = md5(seed);
+        const { timestamp, apiKey, hashString } = getHashString();
 
         if (processedTitle) {
-          return `comics?title=${processedTitle}&ts=${timestamp}&apikey=${PUBLIC_API_KEY}&hash=${hashString}`;
+          return `comics?title=${processedTitle}&ts=${timestamp}&apikey=${apiKey}&hash=${hashString}`;
         }
 
-        return `comics?ts=${timestamp}&apikey=${PUBLIC_API_KEY}&hash=${hashString}`;
+        return `comics?ts=${timestamp}&apikey=${apiKey}&hash=${hashString}`;
       },
 
       transformResponse: (data: ApiResponse) => {
@@ -38,8 +33,15 @@ export const marvelApi = createApi({
           results: results
         };
       }
+    }),
+    getComicById: builder.query<Comic, string>({
+      query: (id) => {
+        const { timestamp, apiKey, hashString } = getHashString();
+
+        return `comics/${id}?ts=${timestamp}&apikey=${apiKey}&hash=${hashString}`;
+      }
     })
   })
 });
 
-export const { useGetComicByTitleQuery } = marvelApi;
+export const { useGetComicsByTitleQuery, useGetComicByIdQuery } = marvelApi;
