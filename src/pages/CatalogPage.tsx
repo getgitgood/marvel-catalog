@@ -10,7 +10,8 @@ export default function Catalog() {
   const [title, setTitle] = useState('');
   const [paginationState, setPaginationState] = useState<PaginationStateProps>({
     limit: 20,
-    offset: 0
+    offset: 0,
+    total: 0
   });
 
   const { limit, offset } = paginationState;

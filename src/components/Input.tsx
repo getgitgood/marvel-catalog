@@ -10,12 +10,20 @@ export default function Input({
   inputId,
   placeholder,
   inputType = 'text',
-  labelText = ''
+  labelText = '',
+  setComicsTitle
 }: InputProps) {
   return (
     <>
       <label htmlFor={inputId}>{labelText}</label>
-      <StyledInput id={inputId} placeholder={placeholder} type={inputType} />
+      <StyledInput
+        onChange={
+          setComicsTitle ? (e) => setComicsTitle(e.target.value) : undefined
+        }
+        id={inputId}
+        placeholder={placeholder}
+        type={inputType}
+      />
     </>
   );
 }

@@ -7,10 +7,11 @@ import {
 } from 'react-router-dom';
 
 import MainContent from './components/MainContent';
-import Catalog from './pages/Catalog';
+import Catalog from './pages/CatalogPage';
 import { Provider } from 'react-redux';
 import { setupStore } from './store';
-import Details from './pages/Details';
+import Details from './pages/DetailsPage';
+import PurchasedPage from './pages/PurchasedPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,7 +20,9 @@ const router = createBrowserRouter(
       <Route path="catalog" element={<Catalog />}>
         <Route path=":id" id=":id" element={<Details />} />
       </Route>
-      <Route path="purchased" element={<div>Purchased</div>} />
+      <Route path="purchased" element={<PurchasedPage />}>
+        <Route path=":id" element={<Details />} />
+      </Route>
       <Route path="favorites" element={<div>Favorites</div>} />
     </Route>
   )

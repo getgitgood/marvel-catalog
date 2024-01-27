@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import exitImg from '../assets/img/exit.png';
 import { Button, Prices } from '../components/index';
-import { useResults } from '../hooks';
+import { useAppDispatch, useAppSelector, useResults } from '../hooks';
 import getImageSrc from '../utils/getImageSrc';
 import { ButtonsStateProps } from '../types';
+import { addToPurchasedCards } from '../features/projectSlice';
 
 const StyledDetails = styled.section`
   position: absolute;
@@ -95,20 +96,31 @@ export default function Details() {
   const params = useParams();
   const { id } = params;
   const [isHovered, setIsHovered] = useState(false);
+  const { purchasedCards } = useAppSelector((state) => state.project);
   const [buttonsState, setButtonsState] = useState<ButtonsStateProps>({
     isPurchaseDisabled: false,
     isFavoriteAdded: false,
-    isPurchased: false
+    isPurchased: !!purchasedCards.find((card) => card.id === Number(id))
   });
 
   const currentCard = results.find((card) => card.id === Number(id));
 
+  const dispatch = useAppDispatch();
   const navigation = useNavigate();
 
   const navigateBack = (e: MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
     if (e.target === e.currentTarget) {
       navigation('..');
     }
+  };
+
+  const purchaseButtonHandler = () => {
+    dispatch(addToPurchasedCards(currentCard));
+    setButtonsState({
+      ...buttonsState,
+      isPurchased: true,
+      isPurchaseDisabled: true
+    });
   };
 
   const handleMouseOverDetails = () => {
@@ -149,10 +161,13 @@ export default function Details() {
             <Prices {...{ prices, setButtonsState }} />
             <div className="details_buttons">
               <Button
+                onClick={purchaseButtonHandler}
                 buttonText={
                   buttonsState.isPurchased ? 'В коллекции' : 'Приобрести'
                 }
-                isDisabled={buttonsState.isPurchaseDisabled}
+                isDisabled={
+                  buttonsState.isPurchaseDisabled || buttonsState.isPurchased
+                }
               />
               <Button
                 buttonText={

@@ -12,10 +12,8 @@ export type ApiResponse = {
 };
 
 export interface PaginationInfo {
-  offset: number;
   limit: number;
   total: number;
-  count: number;
 }
 
 export interface ResponseData extends PaginationInfo {
@@ -29,9 +27,9 @@ export type RequestResults = {
 
 export type ContentProps = {
   data: RequestResults | undefined;
-  isError: boolean;
-  error: FetchBaseQueryError | SerializedError | undefined;
-  isFetching: boolean;
+  isError?: boolean;
+  error?: FetchBaseQueryError | SerializedError | undefined;
+  isFetching?: boolean;
   limit?: number;
 };
 
