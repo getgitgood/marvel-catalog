@@ -8,7 +8,19 @@ const StyledButton = styled.button`
 
 export default function Button({
   buttonText,
-  buttonType = 'submit'
+  buttonType = 'submit',
+  isDisabled = false,
+  onClick,
+  className = ''
 }: ButtonProps) {
-  return <StyledButton type={buttonType}>{buttonText}</StyledButton>;
+  return (
+    <StyledButton
+      onClick={onClick}
+      className={className}
+      type={buttonType}
+      disabled={isDisabled}
+    >
+      {buttonText}
+    </StyledButton>
+  );
 }

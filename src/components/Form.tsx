@@ -1,9 +1,8 @@
-import { styled } from 'styled-components';
-import { FormComponentProps } from '../types';
-import Input from './Input';
-import Button from './Button';
 import { FormEvent } from 'react';
 import { Form } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { FormComponentProps } from '../types';
+import { Button, Input } from './index';
 
 const StyledForm = styled(Form)`
   display: flex;

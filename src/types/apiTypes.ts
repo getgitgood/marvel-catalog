@@ -19,12 +19,12 @@ export interface PaginationInfo {
 }
 
 export interface ResponseData extends PaginationInfo {
-  results: CardData[];
+  results: Comic[];
 }
 
 export type RequestResults = {
   pagination: PaginationInfo;
-  results: CardData[];
+  results: Comic[];
 };
 
 export type ContentProps = {
@@ -34,7 +34,12 @@ export type ContentProps = {
   isFetching: boolean;
 };
 
-export type CardData = {
+export type ComicPrice = {
+  type: string;
+  price: number;
+};
+
+export type Comic = {
   id: number;
   digitalId: number;
   title: string;
@@ -91,12 +96,7 @@ export type CardData = {
       date: Date;
     }
   ];
-  prices: [
-    {
-      type: string;
-      price: number;
-    }
-  ];
+  prices: ComicPrice[];
   thumbnail: {
     path: string;
     extension: string;

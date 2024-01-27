@@ -3,6 +3,10 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
   @use url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
+  * {
+    box-sizing: border-box;
+  }
+
   html {
     font-size: 20px;
     font-family: 'Roboto Condensed', sans-serif;
@@ -15,7 +19,11 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
     flex-direction: column;
     position: relative;
     height: 100%;
-    background-color: ${({ theme }) => theme.grey};
+    background-color: ${({ theme }) => theme.blue};
+
+    @media screen and (max-width: ${({ theme }) => theme.mobile}) {
+      font-size: 0.8em
+    }
   }
 
   button {
@@ -23,7 +31,16 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
   }
 
   main {
+    position: relative;
     padding: 1em;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.4em;
   }
 
   a {
@@ -40,7 +57,7 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
     }
   }
   ::-webkit-scrollbar {
-    width: 0.25em;
+    width: 5px;
   }
   
   ::-webkit-scrollbar-track {
@@ -51,11 +68,11 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
     background-color: transparent;
     transition: background-color 1s ease;
   }
-  
+
   :hover::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.lightgrey};
     border-radius: 5px;
-    width: 0.35em;
+    width: 7px;
     cursor: pointer;
   }
 `;
@@ -66,8 +83,11 @@ export const theme = {
   grey: '#202020',
   hover: '#767676',
   white: '#fff',
-  lightgrey: '#d3d3d3',
-  mobile: '585px',
+  blue: '#303651',
+  lightgrey: '#504a4a',
+  laptop: '1200px',
+  mobile: '500px',
+  desktop: '1600px',
   borderRadius: '0.25em'
 };
 
