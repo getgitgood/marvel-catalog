@@ -12,15 +12,16 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
     font-family: 'Roboto Condensed', sans-serif;
     color: ${({ theme }) => theme.white};
     height: 100%;
+    overflow-x: hidden;
   }
-
+  
   body {
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 100%;
     background-color: ${({ theme }) => theme.blue};
-
+    height: 100%;
+    overflow-x: hidden;
     @media screen and (max-width: ${({ theme }) => theme.mobile}) {
       font-size: 0.8em
     }
@@ -33,6 +34,7 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
   main {
     position: relative;
     padding: 1em;
+    // min-height: 100%;
   }
 
   h1 {
@@ -41,6 +43,10 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
 
   h2 {
     font-size: 1.4em;
+  }
+
+  li {
+    list-style: none;
   }
 
   a {

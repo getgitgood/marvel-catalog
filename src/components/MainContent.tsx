@@ -1,13 +1,18 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
+import { styled } from 'styled-components';
 
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+`;
 export default function MainContent() {
   return (
     <>
       <Header />
-      <main className="main">
+      <Main className="main">
         <Outlet />
-      </main>
+      </Main>
       <footer className="footer" />
     </>
   );

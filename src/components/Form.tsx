@@ -16,13 +16,13 @@ export default function FormComponent({
   inputId,
   inputType,
   placeholder,
-  setCurrentSearch
+  setTitle
 }: FormComponentProps) {
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { elements } = e.currentTarget;
     const { value } = elements.namedItem('search') as HTMLInputElement;
-    setCurrentSearch!(value);
+    setTitle!(value);
   };
 
   return (

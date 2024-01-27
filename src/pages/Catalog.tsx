@@ -1,29 +1,51 @@
-import { styled } from 'styled-components';
 import Form from '../components/Form';
 import { useGetComicsByTitleQuery } from '../features/apiSlice';
 import Content from '../components/Content';
 import { useState } from 'react';
-
-const Section = styled.section`
-  height: 100%;
-`;
+import { PaginationStateProps } from '../types';
+import CardsSkeleton from '../components/CardsSkeleton';
+import Pagination from '../components/Pagination';
 
 export default function Catalog() {
-  const [currentSearch, setCurrentSearch] = useState('');
-  const { data, isFetching, isError, error } =
-    useGetComicsByTitleQuery(currentSearch);
+  const [title, setTitle] = useState('');
+  const [paginationState, setPaginationState] = useState<PaginationStateProps>({
+    limit: 20,
+    offset: 0
+  });
+
+  const { limit, offset } = paginationState;
+
+  const { data, isFetching, isError, error } = useGetComicsByTitleQuery({
+    title,
+    limit,
+    offset
+  });
+
   return (
-    <Section>
+    <>
       <Form
         {...{
           inputId: 'search',
           htmlFor: 'search',
           buttonText: 'Найти',
           placeholder: 'Название комикса',
-          setCurrentSearch
+          setTitle
         }}
       />
-      <Content {...{ data, isFetching, isError, error }} />
-    </Section>
+      {isFetching ? (
+        <CardsSkeleton cardsNumber={limit} />
+      ) : (
+        <Content
+          {...{ data, isFetching, isError, error, limit, setPaginationState }}
+        />
+      )}
+      {data?.pagination ? (
+        <Pagination
+          key={title}
+          pagination={data.pagination}
+          {...{ setPaginationState }}
+        />
+      ) : null}
+    </>
   );
 }
