@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction, MouseEvent } from 'react';
-import { Comic, ComicPrice } from './apiTypes';
+import { Comic, ComicPrice, PaginationInfo } from './apiTypes';
 
 export type PrivateRouteProps = {
   children: ReactNode;
@@ -33,13 +33,18 @@ export type InputProps = {
   labelText?: string;
 };
 
+export type PaginationProps<T> = {
+  pagination: PaginationInfo;
+  setPaginationState: Dispatch<SetStateAction<T>>;
+};
+
 export type LabelProps = {
   htmlFor: string;
   labelText?: string;
 };
 
 export type FormProps = {
-  setCurrentSearch?: (value: string) => void;
+  setTitle?: (value: string) => void;
 };
 
 export type FormComponentProps = ButtonProps &
@@ -51,3 +56,8 @@ export interface ProjectSlice {
   isAuthenticated: boolean | null;
   catalogCards: Comic[];
 }
+
+export type PaginationStateProps = {
+  limit: number;
+  offset: number;
+};

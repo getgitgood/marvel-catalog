@@ -1,10 +1,17 @@
 import { styled } from 'styled-components';
 import { ContentProps } from '../types';
-import { Loader, Card } from './index';
+import { Card } from './index';
 import { Outlet } from 'react-router-dom';
 
-const StyledContent = styled.section`
+export const StyledContent = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const StyledGrid = styled.div`
   display: grid;
+  min-height: 100%;
   grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
   gap: 1em;
   justify-content: space-around;
@@ -15,28 +22,21 @@ const StyledContent = styled.section`
   }
 `;
 
-export default function Content({
-  data,
-  isError = false,
-  // error = undefined,
-  isFetching = false
-}: ContentProps) {
+export default function Content({ data, isError = false }: ContentProps) {
   if (isError) {
     return <p>Error!</p>;
-  }
-
-  if (isFetching) {
-    return <Loader />;
   }
 
   if (data) {
     const { results } = data;
     return (
       <StyledContent>
-        {results.map((cardData) => (
-          <Card {...{ cardData }} key={cardData.id} />
-        ))}
-        <Outlet context={{ results }} />
+        <StyledGrid>
+          {results.map((cardData) => (
+            <Card {...{ cardData }} key={cardData.id} />
+          ))}
+          <Outlet context={{ results }} />
+        </StyledGrid>
       </StyledContent>
     );
   }

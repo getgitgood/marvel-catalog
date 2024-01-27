@@ -32,6 +32,7 @@ export type ContentProps = {
   isError: boolean;
   error: FetchBaseQueryError | SerializedError | undefined;
   isFetching: boolean;
+  limit?: number;
 };
 
 export type ComicPrice = {

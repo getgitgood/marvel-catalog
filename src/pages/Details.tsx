@@ -20,7 +20,7 @@ const StyledDetails = styled.section`
   color: red;
   background: rgba(0, 0, 0, 0.4);
 
-  .details_sticky-wrapper {
+  .details_wrapper {
     position: absolute;
     background: ${({ theme }) => theme.black};
     top: 0;
@@ -47,31 +47,24 @@ const StyledDetails = styled.section`
   .details_close-btn {
     cursor: pointer;
     min-width: fit-content;
-    // min-height: 3em;
     background: no-repeat url(${exitImg});
     background-size: 100%;
     align-self: flex-end;
     background-color: white;
   }
 
-  .details_wrapper {
+  .details_sticky-wrapper {
     position: sticky;
-    top: 5%;
-    left: 0;
+    top: 0;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    height: 100vh;
     padding: 1.5em 1em 3em;
     width: 100%;
-    height: 100vh;
-    &.hovered {
-      overflow: auto;
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
+    overflow-y: auto;
+
     .details_title {
       padding: 0 1em;
     }
@@ -120,12 +113,14 @@ export default function Details() {
 
   const handleMouseOverDetails = () => {
     setIsHovered(true);
-    // document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden hidden';
+    document.body.style.marginRight = '0';
   };
 
   const handleMouseLeaveDetails = () => {
     setIsHovered(false);
-    // document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'hidden auto';
+    document.body.style.marginRight = '-5px';
   };
 
   if (currentCard) {
@@ -134,9 +129,9 @@ export default function Details() {
 
     return (
       <StyledDetails onClick={navigateBack}>
-        <div className={`details_sticky-wrapper`}>
+        <div className={`details_wrapper`}>
           <div
-            className={`details_wrapper ${isHovered ? 'hovered' : ''}`}
+            className={`details_sticky-wrapper ${isHovered ? 'hovered' : ''}`}
             onMouseEnter={handleMouseOverDetails}
             onMouseLeave={handleMouseLeaveDetails}
           >
