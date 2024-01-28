@@ -76,7 +76,9 @@ export default function Header() {
         </Link>
       </nav>
       <div className="authentication">
-        <a className="signin">Sign In</a>
+        <Link to={'auth'} className="signin">
+          Войти
+        </Link>
       </div>
     </StyledHeader>
   );
