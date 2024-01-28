@@ -9,6 +9,7 @@ import {
 import Content from '../components/Content';
 import Input from '../components/Input';
 import Pagination from '../components/Pagination';
+import { FormComponent } from '../components';
 
 export default function UserCollections({
   collectionName
@@ -48,17 +49,19 @@ export default function UserCollections({
     pagination: paginationState
   };
 
+  const [inputId, placeholder] = ['search', 'Искать в коллекции'];
+
   return (
     <>
-      <div>
+      <FormComponent>
         <Input
           {...{
-            inputId: 'search',
-            placeholder: 'Искать в коллекции',
+            inputId,
+            placeholder,
             setComicsTitle
           }}
         />
-      </div>
+      </FormComponent>
       <Content {...{ data, limit, setPaginationState }} />
       <Pagination
         key={comicsTitle}

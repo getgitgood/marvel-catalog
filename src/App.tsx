@@ -12,11 +12,13 @@ import { Provider } from 'react-redux';
 import { setupStore } from './store';
 import Details from './pages/DetailsPage';
 import UserCollections from './pages/UserCollections';
+import AuthPage from './pages/AuthPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<MainContent />}>
       <Route index element={<Navigate to={'catalog'} replace />} />
+      <Route path="auth" element={<AuthPage />} />
       <Route path="catalog" element={<Catalog />}>
         <Route path=":id" id=":id" element={<Details />} />
       </Route>

@@ -1,4 +1,10 @@
-import { Dispatch, ReactNode, SetStateAction, MouseEvent } from 'react';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  MouseEvent,
+  FormEvent
+} from 'react';
 import { Comic, ComicPrice, PaginationInfo } from './apiTypes';
 
 export type PrivateRouteProps = {
@@ -44,13 +50,9 @@ export type LabelProps = {
 };
 
 export type FormProps = {
-  setTitle?: (value: string) => void;
+  children: ReactNode;
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
 };
-
-export type FormComponentProps = ButtonProps &
-  InputProps &
-  LabelProps &
-  FormProps;
 
 export interface ProjectSlice {
   isAuthenticated: boolean | null;

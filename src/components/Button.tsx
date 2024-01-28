@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { ButtonProps } from '../types';
 
 const StyledButton = styled.button`
-  padding: 0.5em;
+  // padding: 0.5em;
   border-radius: 0.25em;
 `;
 

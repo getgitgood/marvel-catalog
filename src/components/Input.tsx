@@ -1,8 +1,14 @@
 import { styled } from 'styled-components';
 import { InputProps } from '../types';
 
+const StyledLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+`;
+
 const StyledInput = styled.input`
-  padding: 0.2em 0.5em;
+  padding: 0.2em 0.4em;
   border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
@@ -14,8 +20,8 @@ export default function Input({
   setComicsTitle
 }: InputProps) {
   return (
-    <>
-      <label htmlFor={inputId}>{labelText}</label>
+    <StyledLabel htmlFor={inputId}>
+      {labelText}
       <StyledInput
         onChange={
           setComicsTitle ? (e) => setComicsTitle(e.target.value) : undefined
@@ -24,6 +30,6 @@ export default function Input({
         placeholder={placeholder}
         type={inputType}
       />
-    </>
+    </StyledLabel>
   );
 }

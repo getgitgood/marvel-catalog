@@ -16,6 +16,9 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
     margin-right: -5px;
   }
   
+  #root {
+    height: 100%;
+  }
   body {
     position: relative;
     background-color: ${({ theme }) => theme.blue};
@@ -33,7 +36,7 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
   main {
     position: relative;
     padding: 1em;
-    // min-height: 100%;
+    min-height: 100%;
   }
 
   h1 {
