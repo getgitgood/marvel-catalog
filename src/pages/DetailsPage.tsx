@@ -1,4 +1,4 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -7,7 +7,11 @@ import { Button, Prices } from '../components/index';
 import { useAppDispatch, useAppSelector, useResults } from '../hooks';
 import getImageSrc from '../utils/getImageSrc';
 import { ButtonsStateProps } from '../types';
-import { addToPurchasedCards } from '../features/projectSlice';
+import {
+  addToFavoriteCards,
+  addToPurchasedCards,
+  removeFromFavoriteCards
+} from '../features/projectSlice';
 
 const StyledDetails = styled.section`
   position: absolute;
@@ -95,11 +99,12 @@ export default function Details() {
   const { results } = useResults();
   const params = useParams();
   const { id } = params;
-  const [isHovered, setIsHovered] = useState(false);
-  const { purchasedCards } = useAppSelector((state) => state.project);
+  const { purchasedCards, favoriteCards } = useAppSelector(
+    (state) => state.project
+  );
   const [buttonsState, setButtonsState] = useState<ButtonsStateProps>({
     isPurchaseDisabled: false,
-    isFavoriteAdded: false,
+    isFavoriteAdded: !!favoriteCards.find((card) => card.id === Number(id)),
     isPurchased: !!purchasedCards.find((card) => card.id === Number(id))
   });
 
@@ -116,23 +121,27 @@ export default function Details() {
 
   const purchaseButtonHandler = () => {
     dispatch(addToPurchasedCards(currentCard));
-    setButtonsState({
-      ...buttonsState,
+    setButtonsState((prev) => ({
+      ...prev,
       isPurchased: true,
       isPurchaseDisabled: true
-    });
+    }));
   };
 
-  const handleMouseOverDetails = () => {
-    setIsHovered(true);
-    document.body.style.overflow = 'hidden hidden';
-    document.body.style.marginRight = '0';
-  };
+  useEffect(() => {
+    setButtonsState((prev) => ({
+      ...prev,
+      isFavoriteAdded: !!favoriteCards.find((card) => card.id === Number(id)),
+      isPurchased: !!purchasedCards.find((card) => card.id === Number(id))
+    }));
+  }, [id, favoriteCards, purchasedCards]);
 
-  const handleMouseLeaveDetails = () => {
-    setIsHovered(false);
-    document.body.style.overflow = 'hidden auto';
-    document.body.style.marginRight = '-5px';
+  const addToFavoritesButtonHandler = () => {
+    if (!buttonsState.isFavoriteAdded) {
+      dispatch(addToFavoriteCards(currentCard));
+    } else {
+      dispatch(removeFromFavoriteCards(currentCard));
+    }
   };
 
   if (currentCard) {
@@ -142,11 +151,7 @@ export default function Details() {
     return (
       <StyledDetails onClick={navigateBack}>
         <div className={`details_wrapper`}>
-          <div
-            className={`details_sticky-wrapper ${isHovered ? 'hovered' : ''}`}
-            onMouseEnter={handleMouseOverDetails}
-            onMouseLeave={handleMouseLeaveDetails}
-          >
+          <div className={`details_sticky-wrapper`}>
             <Button onClick={navigateBack} className={'details_close-btn'} />
             <h2 className="details_title">{title}</h2>
             <img
@@ -170,12 +175,12 @@ export default function Details() {
                 }
               />
               <Button
+                onClick={addToFavoritesButtonHandler}
                 buttonText={
                   buttonsState.isFavoriteAdded
                     ? 'Удалить из избранного'
                     : 'В избранное'
                 }
-                isDisabled={buttonsState.isFavoriteAdded}
               />
             </div>
           </div>

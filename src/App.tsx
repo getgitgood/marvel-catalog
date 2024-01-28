@@ -11,7 +11,7 @@ import Catalog from './pages/CatalogPage';
 import { Provider } from 'react-redux';
 import { setupStore } from './store';
 import Details from './pages/DetailsPage';
-import PurchasedPage from './pages/PurchasedPage';
+import UserCollections from './pages/UserCollections';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,10 +20,18 @@ const router = createBrowserRouter(
       <Route path="catalog" element={<Catalog />}>
         <Route path=":id" id=":id" element={<Details />} />
       </Route>
-      <Route path="purchased" element={<PurchasedPage />}>
+      <Route
+        path="purchased"
+        element={<UserCollections collectionName={'purchasedCards'} />}
+      >
         <Route path=":id" element={<Details />} />
       </Route>
-      <Route path="favorites" element={<div>Favorites</div>} />
+      <Route
+        path="favorites"
+        element={<UserCollections collectionName={'favoriteCards'} />}
+      >
+        <Route path=":id" element={<Details />} />
+      </Route>
     </Route>
   )
 );
