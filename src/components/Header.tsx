@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
 import imgURL from '../assets/img/marvel_logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { updateUserStatus } from '../features/projectSlice';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -59,6 +61,17 @@ const StyledHeader = styled.header`
 `;
 
 export default function Header() {
+  const { isAuthenticated } = useAppSelector((state) => state.project);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const authClickHandler = () => {
+    if (isAuthenticated) {
+      dispatch(updateUserStatus(null));
+      navigate('/');
+    } else {
+      navigate('auth');
+    }
+  };
   return (
     <StyledHeader className="header">
       <a className="logo_link" href="#">
@@ -68,18 +81,21 @@ export default function Header() {
         <Link to={'catalog'} className="link header_link">
           Каталог
         </Link>
-        <Link to={'purchased'} className="link header_link">
-          Приобретённые
-        </Link>
-        <Link to={'favorites'} className="link header_link">
-          Избранные
-        </Link>
+        {isAuthenticated && (
+          <>
+            <Link to={'purchased'} className="link header_link">
+              Приобретённые
+            </Link>
+            <Link to={'favorites'} className="link header_link">
+              Избранные
+            </Link>
+          </>
+        )}
       </nav>
-      <div className="authentication">
-        <Link to={'auth'} className="signin">
-          Войти
-        </Link>
-      </div>
+
+      <a onClick={authClickHandler} className="signin">
+        {!isAuthenticated ? 'Войти' : 'Выход'}
+      </a>
     </StyledHeader>
   );
 }

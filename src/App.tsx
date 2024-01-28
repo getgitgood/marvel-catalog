@@ -13,6 +13,7 @@ import { setupStore } from './store';
 import Details from './pages/DetailsPage';
 import UserCollections from './pages/UserCollections';
 import AuthPage from './pages/AuthPage';
+import PrivateRoute from './utils/PrivateRoute';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,13 +25,21 @@ const router = createBrowserRouter(
       </Route>
       <Route
         path="purchased"
-        element={<UserCollections collectionName={'purchasedCards'} />}
+        element={
+          <PrivateRoute>
+            <UserCollections collectionName={'purchasedCards'} />
+          </PrivateRoute>
+        }
       >
         <Route path=":id" element={<Details />} />
       </Route>
       <Route
         path="favorites"
-        element={<UserCollections collectionName={'favoriteCards'} />}
+        element={
+          <PrivateRoute>
+            <UserCollections collectionName={'favoriteCards'} />
+          </PrivateRoute>
+        }
       >
         <Route path=":id" element={<Details />} />
       </Route>

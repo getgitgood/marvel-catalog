@@ -99,11 +99,12 @@ export default function Details() {
   const { results } = useResults();
   const params = useParams();
   const { id } = params;
-  const { purchasedCards, favoriteCards } = useAppSelector(
+  const { purchasedCards, favoriteCards, isAuthenticated } = useAppSelector(
     (state) => state.project
   );
   const [buttonsState, setButtonsState] = useState<ButtonsStateProps>({
-    isPurchaseDisabled: false,
+    isPurchaseAllowed: isAuthenticated,
+    isFavoritesAllowed: isAuthenticated,
     isFavoriteAdded: !!favoriteCards.find((card) => card.id === Number(id)),
     isPurchased: !!purchasedCards.find((card) => card.id === Number(id))
   });
@@ -124,7 +125,7 @@ export default function Details() {
     setButtonsState((prev) => ({
       ...prev,
       isPurchased: true,
-      isPurchaseDisabled: true
+      isPurchaseAllowed: false
     }));
   };
 
@@ -168,16 +169,19 @@ export default function Details() {
               <Button
                 onClick={purchaseButtonHandler}
                 buttonText={
-                  buttonsState.isPurchased ? 'В коллекции' : 'Приобрести'
+                  buttonsState.isPurchased && isAuthenticated
+                    ? 'В коллекции'
+                    : 'Приобрести'
                 }
                 isDisabled={
-                  buttonsState.isPurchaseDisabled || buttonsState.isPurchased
+                  !buttonsState.isPurchaseAllowed || buttonsState.isPurchased
                 }
               />
               <Button
+                isDisabled={!buttonsState.isFavoritesAllowed}
                 onClick={addToFavoritesButtonHandler}
                 buttonText={
-                  buttonsState.isFavoriteAdded
+                  buttonsState.isFavoriteAdded && isAuthenticated
                     ? 'Удалить из избранного'
                     : 'В избранное'
                 }
