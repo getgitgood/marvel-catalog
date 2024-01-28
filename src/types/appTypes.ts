@@ -9,7 +9,6 @@ import { Comic, ComicPrice, PaginationInfo } from './apiTypes';
 
 export type PrivateRouteProps = {
   children: ReactNode;
-  redirectPath: string;
 };
 
 export type ButtonProps = {
@@ -26,8 +25,9 @@ export type PricesProps<T> = {
 };
 
 export type ButtonsStateProps = {
-  isPurchaseDisabled: boolean;
+  isPurchaseAllowed: boolean;
   isFavoriteAdded: boolean;
+  isFavoritesAllowed: boolean;
   isPurchased: boolean;
 };
 
@@ -51,11 +51,12 @@ export type LabelProps = {
 
 export type FormProps = {
   children: ReactNode;
+  autocomplete?: string;
   onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
 };
 
 export interface ProjectSlice {
-  isAuthenticated: boolean | null;
+  isAuthenticated: boolean;
   catalogCards: Comic[];
   favoriteCards: Comic[];
   purchasedCards: Comic[];

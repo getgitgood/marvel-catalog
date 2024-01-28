@@ -8,6 +8,14 @@ const StyledForm = styled(Form)`
   gap: 0.5em;
 `;
 
-export default function FormComponent({ children, onSubmit }: FormProps) {
-  return <StyledForm onSubmit={onSubmit}>{children}</StyledForm>;
+export default function FormComponent({
+  children,
+  onSubmit,
+  autocomplete = 'on'
+}: FormProps) {
+  return (
+    <StyledForm onSubmit={onSubmit} autoComplete={autocomplete}>
+      {children}
+    </StyledForm>
+  );
 }

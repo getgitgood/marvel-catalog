@@ -32,9 +32,7 @@ export type CardProps = {
 };
 
 export default function Card({ cardData }: CardProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { images, id, title } = cardData;
-  // const { title, description, prices, images, id } = cardData;
   const imageSrc = getImageSrc(images);
 
   return (

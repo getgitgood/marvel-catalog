@@ -1,27 +1,17 @@
 import { useEffect } from 'react';
 import { PrivateRouteProps } from '../types';
-import Loader from '../components/Loader';
 import { useNavigate } from 'react-router';
 import { useAppSelector } from '../hooks';
 
-export default function PrivateRoute({
-  children,
-  redirectPath
-}: PrivateRouteProps) {
-  const navigate = useNavigate();
+export default function PrivateRoute({ children }: PrivateRouteProps) {
   const { isAuthenticated } = useAppSelector((state) => state.project);
-
-  const isRedirected = isAuthenticated !== null;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (isRedirected) {
-      navigate(redirectPath);
+    if (!isAuthenticated) {
+      navigate('/');
     }
-  }, [isAuthenticated, navigate, redirectPath, isRedirected]);
+  }, [isAuthenticated, navigate]);
 
-  if (isAuthenticated === null) {
-    return <Loader />;
-  }
-
-  return !isRedirected && children;
+  return isAuthenticated && children;
 }

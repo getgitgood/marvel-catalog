@@ -33,7 +33,7 @@ export default function Catalog() {
     e.preventDefault();
     const { elements } = e.currentTarget;
     const { value } = elements.namedItem(inputId) as HTMLInputElement;
-    setTitle!(value);
+    setTitle(value);
   };
 
   return (
