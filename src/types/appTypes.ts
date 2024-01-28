@@ -64,3 +64,7 @@ export type PaginationStateProps = {
   offset: number;
   total: number;
 };
+
+export type UserCollectionProps = {
+  collectionName: string;
+};

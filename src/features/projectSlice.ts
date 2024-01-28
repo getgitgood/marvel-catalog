@@ -24,7 +24,9 @@ const projectSlice = createSlice({
       state.favoriteCards.push(payload);
     },
     removeFromFavoriteCards(state, { payload }) {
-      state.favoriteCards.filter((card) => card.id !== payload);
+      state.favoriteCards = state.favoriteCards.filter(
+        (card) => card.id !== payload.id
+      );
     }
   }
 });

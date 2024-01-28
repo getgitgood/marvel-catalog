@@ -16,15 +16,12 @@ export const marvelApi = createApi({
   endpoints: (builder) => ({
     getComicsByTitle: builder.query<RequestResults, ApiRequest>({
       query: ({ title, limit = '20', offset = '20' }) => {
-        const processedTitle = title.toLowerCase().trim().replace(/ /g, '-');
-
+        const processedTitle =
+          title.toLowerCase().trim().replace(/ /g, '-') || '';
+        const titleQuery = processedTitle ? `&title=${processedTitle}` : '';
         const { timestamp, apiKey, hashString } = getHashString();
 
-        if (processedTitle) {
-          return `comics?limit=${limit}&offset=${offset}&title=${processedTitle}&ts=${timestamp}&apikey=${apiKey}&hash=${hashString}`;
-        }
-
-        return `comics?limit=${limit}&offset=${offset}&ts=${timestamp}&apikey=${apiKey}&hash=${hashString}`;
+        return `comics?limit=${limit}&offset=${offset}${titleQuery}&format=comic&orderBy=focDate&noVariants=true&ts=${timestamp}&apikey=${apiKey}&hash=${hashString}`;
       },
 
       transformResponse: (data: ApiResponse) => {

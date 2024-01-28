@@ -25,6 +25,7 @@ export default function Prices({
   );
 
   useEffect(() => {
+    console.log(pricesValue);
     setButtonsState((prev) => ({
       ...prev,
       isPurchaseDisabled: !pricesValue.length

@@ -12,7 +12,8 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
     font-family: 'Roboto Condensed', sans-serif;
     color: ${({ theme }) => theme.white};
     height: 100%;
-    overflow-x: hidden;
+    overflow: hidden auto;
+    margin-right: -5px;
   }
   
   body {
