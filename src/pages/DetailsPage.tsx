@@ -3,15 +3,15 @@ import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import exitImg from '../assets/img/exit.svg';
-import { Prices } from '../components/index';
-import { useAppDispatch, useAppSelector, useResults } from '../hooks';
-import getImageSrc from '../utils/getImageSrc';
-import { ButtonsStateProps } from '../types';
+import { Prices } from '../components';
 import {
   addToFavoriteCards,
   addToPurchasedCards,
   removeFromFavoriteCards
 } from '../features/projectSlice';
+import { useAppDispatch, useAppSelector, useResults } from '../hooks';
+import { ButtonsStateProps } from '../types';
+import { getImageSrc } from '../utils/helpers';
 
 const StyledDetails = styled.section`
   position: absolute;
@@ -136,7 +136,7 @@ const StyledDetails = styled.section`
   }
 `;
 
-export default function Details() {
+export default function DetailsPage() {
   const { results } = useResults();
   const params = useParams();
   const { id } = params;

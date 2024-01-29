@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ErrorPageProps } from '../types';
 import { styled } from 'styled-components';
+import { ErrorPageProps } from '../types';
 
-const StyledErrorPage = styled.section`
+export const StyledErrorPage = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,24 +11,6 @@ const StyledErrorPage = styled.section`
 
   * {
     padding-bottom: 1rem;
-  }
-
-  .error_title {
-    font-size: 5rem;
-  }
-
-  .error_message {
-    font-size: 2rem;
-  }
-  .error_description {
-    font-size: 3rem;
-    text-decoration: underline;
-  }
-
-  .home {
-    padding: 2rem;
-    font-size: 3rem;
-    background-color: rgb(106, 53, 53);
   }
 `;
 
@@ -46,7 +28,7 @@ export default function ErrorPage({ message }: ErrorPageProps) {
         <h3 className={'error_message'}>Произошла неизвестная ошибка!</h3>
       )}
 
-      <Link className={'home'} to={'/'}>
+      <Link className={'home_button'} to={'/'}>
         К каталогу.
       </Link>
     </StyledErrorPage>

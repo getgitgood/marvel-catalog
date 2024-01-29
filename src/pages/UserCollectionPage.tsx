@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Content, Form, Input, Pagination } from '../components';
 import { useAppSelector } from '../hooks';
 import {
   Comic,
@@ -6,12 +7,8 @@ import {
   ProjectSlice,
   UserCollectionProps
 } from '../types';
-import Content from '../components/Content';
-import Input from '../components/Input';
-import Pagination from '../components/Pagination';
-import { FormComponent } from '../components';
 
-export default function UserCollections({
+export default function UserCollectionPage({
   collectionName
 }: UserCollectionProps) {
   const [comicsTitle, setComicsTitle] = useState('');
@@ -20,7 +17,7 @@ export default function UserCollections({
   );
 
   const [paginationState, setPaginationState] = useState<PaginationStateProps>({
-    limit: 5,
+    limit: 8,
     offset: 0,
     total: purchasedCards.length
   });
@@ -55,7 +52,7 @@ export default function UserCollections({
 
   return (
     <>
-      <FormComponent>
+      <Form>
         <Input
           {...{
             inputId,
@@ -63,7 +60,7 @@ export default function UserCollections({
             setComicsTitle
           }}
         />
-      </FormComponent>
+      </Form>
       <Content {...{ data, limit, setPaginationState, notFoundMessage }} />
       <Pagination
         key={comicsTitle}

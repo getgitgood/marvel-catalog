@@ -12,7 +12,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto Condensed', sans-serif;
     color: ${({ theme }) => theme.white};
     height: 100%;
-    // margin-right: -5px;
   }
   
   #root {
@@ -69,6 +68,25 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
+  .error_title {
+    font-size: 4rem;
+  }
+
+  .error_message {
+    font-size: 2rem;
+  }
+
+  .error_description {
+    font-size: 3rem;
+    text-decoration: underline;
+  }
+
+  .home_button {
+    padding: 2rem;
+    font-size: 3rem;
+    background-color: ${({ theme }) => theme.red};
+  }
+
   a {
     cursor: pointer;
     color: #fff;
@@ -109,7 +127,7 @@ export const theme = {
   black: '#000',
   grey: '#202020',
   hover: '#767676',
-  tooltipText: 'Необходима регистрация',
+  tooltipText: 'Необходимо войти',
   white: '#fff',
   blue: '#303651',
   golden: '#DAA520',

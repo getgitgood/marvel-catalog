@@ -1,13 +1,10 @@
-import Form from '../components/Form';
-import { useGetComicsByTitleQuery } from '../features/apiSlice';
-import Content from '../components/Content';
 import { FormEvent, useState } from 'react';
+import { CardsSkeleton, Input, Pagination } from '../components';
+import { Content, Form } from '../components';
+import { useGetComicsByTitleQuery } from '../features/apiSlice';
 import { PaginationStateProps } from '../types';
-import CardsSkeleton from '../components/CardsSkeleton';
-import Pagination from '../components/Pagination';
-import { Input } from '../components';
 
-export default function Catalog() {
+export default function CatalogPage() {
   const [title, setTitle] = useState('');
   const [paginationState, setPaginationState] = useState<PaginationStateProps>({
     limit: 20,

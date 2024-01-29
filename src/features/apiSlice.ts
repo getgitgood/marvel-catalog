@@ -1,12 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ApiResponse, Comic, RequestResults } from '../types';
-import getHashString from '../utils/getHashString';
-
-export type ApiRequest = {
-  title: string;
-  limit?: number;
-  offset?: number;
-};
+import { ApiRequest, ApiResponse, Comic, RequestResults } from '../types';
+import { getHashString } from '../utils/helpers';
 
 export const marvelApi = createApi({
   reducerPath: 'projectApi',

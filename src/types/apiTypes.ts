@@ -8,6 +8,12 @@ export type ApiResponse = {
   etag: string;
 };
 
+export type ApiRequest = {
+  title: string;
+  limit?: number;
+  offset?: number;
+};
+
 export interface PaginationInfo {
   limit: number;
   total: number;

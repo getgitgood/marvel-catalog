@@ -15,6 +15,7 @@ const Main = styled.main`
     margin-top: 1.7em;
   }
 `;
+
 export default function MainContent() {
   return (
     <>
