@@ -2,6 +2,8 @@ import { styled } from 'styled-components';
 import { ContentProps } from '../types';
 import { Card } from './index';
 import { Outlet } from 'react-router-dom';
+import NoResultsPage from '../pages/NoResultsPage';
+import ErrorPage from '../pages/ErrorPage';
 
 export const StyledContent = styled.section`
   display: flex;
@@ -12,7 +14,6 @@ export const StyledContent = styled.section`
 
 export const StyledGrid = styled.div`
   display: grid;
-  min-height: 100%;
   grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
   gap: 1em;
   justify-content: space-around;
@@ -23,21 +24,28 @@ export const StyledGrid = styled.div`
   }
 `;
 
-export default function Content({ data, isError = false }: ContentProps) {
+export default function Content({
+  data,
+  notFoundMessage,
+  isError
+}: ContentProps) {
   if (isError) {
-    return <p>Error!</p>;
+    return <ErrorPage message={'Произошла ошибка!'} />;
   }
-
   if (data) {
     const { results } = data;
     return (
       <StyledContent>
-        <StyledGrid>
-          {results.map((cardData) => (
-            <Card {...{ cardData }} key={cardData.id} />
-          ))}
-          <Outlet context={{ results }} />
-        </StyledGrid>
+        {results.length ? (
+          <StyledGrid>
+            {results.map((cardData) => (
+              <Card {...{ cardData }} key={cardData.id} />
+            ))}
+            <Outlet context={{ results }} />
+          </StyledGrid>
+        ) : (
+          <NoResultsPage notFoundMessage={notFoundMessage} />
+        )}
       </StyledContent>
     );
   }

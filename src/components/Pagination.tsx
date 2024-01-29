@@ -14,10 +14,6 @@ const StyledPagination = styled.nav`
     gap: 1em;
   }
   li {
-    &.disabled {
-      // display: none;
-    }
-
     > a {
       padding: 0.5em;
       background: ${({ theme }) => theme.black};

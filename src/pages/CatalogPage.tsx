@@ -5,7 +5,7 @@ import { FormEvent, useState } from 'react';
 import { PaginationStateProps } from '../types';
 import CardsSkeleton from '../components/CardsSkeleton';
 import Pagination from '../components/Pagination';
-import { Button, Input } from '../components';
+import { Input } from '../components';
 
 export default function Catalog() {
   const [title, setTitle] = useState('');
@@ -17,11 +17,13 @@ export default function Catalog() {
 
   const { limit, offset } = paginationState;
 
-  const { data, isFetching, isError, error } = useGetComicsByTitleQuery({
+  const { data, isFetching, isError } = useGetComicsByTitleQuery({
     title,
     limit,
     offset
   });
+
+  const notFoundMessage = 'По вашему запросу ничего не найдено!';
 
   const [inputId, placeholder, buttonText] = [
     'search',
@@ -40,13 +42,20 @@ export default function Catalog() {
     <>
       <Form onSubmit={onSubmit}>
         <Input {...{ inputId, placeholder }} />
-        <Button {...{ buttonText }} />
+        <button>{buttonText}</button>
       </Form>
       {isFetching ? (
         <CardsSkeleton cardsNumber={limit} />
       ) : (
         <Content
-          {...{ data, isFetching, isError, error, limit, setPaginationState }}
+          {...{
+            data,
+            isFetching,
+            limit,
+            isError,
+            setPaginationState,
+            notFoundMessage
+          }}
         />
       )}
       {data?.pagination ? (

@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { Button, FormComponent, Input } from '../components';
+import { FormComponent, Input } from '../components';
 import { FormEvent, useState } from 'react';
 import { useAppDispatch } from '../hooks';
 import { updateUserStatus } from '../features/projectSlice';
@@ -92,7 +92,7 @@ export default function AuthPage() {
             labelText={passwordLabel}
             placeholder={passwordPlaceholder}
           />
-          <Button buttonText={buttonText} />
+          <button>{buttonText}</button>
         </FormComponent>
         {error && <p>{error.message}</p>}
       </div>

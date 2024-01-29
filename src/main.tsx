@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ThemeProvider } from 'styled-components';
 import App from './App';
-import GlobalStyle, { theme } from './GlobalStyle';
 import './style.scss';
+import ErrorBoundary from './utils/ErrorBoundary';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
+    <ErrorBoundary>
       <App />
-    </ThemeProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );

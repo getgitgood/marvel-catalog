@@ -17,6 +17,8 @@ export type ButtonProps = {
   isDisabled?: boolean;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
   className?: string;
+  onMouseLeave?: () => void;
+  onMouseOver?: () => void;
 };
 
 export type PricesProps<T> = {
@@ -62,6 +64,10 @@ export interface ProjectSlice {
   purchasedCards: Comic[];
 }
 
+export type NoResultsPageProps = {
+  notFoundMessage?: string;
+};
+
 export type PaginationStateProps = {
   limit: number;
   offset: number;
@@ -70,4 +76,8 @@ export type PaginationStateProps = {
 
 export type UserCollectionProps = {
   collectionName: string;
+};
+
+export type ErrorPageProps = {
+  message?: string;
 };

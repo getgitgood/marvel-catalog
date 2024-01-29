@@ -2,8 +2,8 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import exitImg from '../assets/img/exit.png';
-import { Button, Prices } from '../components/index';
+import exitImg from '../assets/img/exit.svg';
+import { Prices } from '../components/index';
 import { useAppDispatch, useAppSelector, useResults } from '../hooks';
 import getImageSrc from '../utils/getImageSrc';
 import { ButtonsStateProps } from '../types';
@@ -22,12 +22,12 @@ const StyledDetails = styled.section`
   z-index: 99;
   top: 0;
   left: 0;
-  color: red;
-  background: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.05);
 
   .details_wrapper {
     position: absolute;
-    background: ${({ theme }) => theme.black};
+    background: ${({ theme }) => theme.golden};
+    color: ${({ theme }) => theme.black};
     top: 0;
     right: 0;
     width: 30%;
@@ -50,12 +50,52 @@ const StyledDetails = styled.section`
   }
 
   .details_close-btn {
+    position: absolute;
+    z-index: 100;
     cursor: pointer;
-    min-width: fit-content;
+    width: 2em;
+    height: 2em;
     background: no-repeat url(${exitImg});
     background-size: 100%;
     align-self: flex-end;
-    background-color: white;
+    &:hover {
+      background-color: none;
+    }
+  }
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tooltip:hover::before {
+    content: '${({ theme }) => theme.tooltipText}';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 0, 0, 0.7);
+    color: white;
+    padding: 5px;
+    border-radius: 0.4em;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+
+  .tooltip::before {
+    content: '';
+    position: absolute;
+    top: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 0.4em;
+    border-radius: ${({ theme }) => theme.borderRadius};
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
   }
 
   .details_sticky-wrapper {
@@ -66,9 +106,13 @@ const StyledDetails = styled.section`
     flex-direction: column;
     align-items: center;
     height: 100vh;
-    padding: 1.5em 1em 3em;
+    padding: 3.5em 3em;
     width: 100%;
     overflow-y: auto;
+
+    @media only screen and (max-width: ${({ theme }) => theme.laptop}) {
+      padding: 1.5em 1em;
+    }
 
     .details_title {
       padding: 0 1em;
@@ -77,9 +121,6 @@ const StyledDetails = styled.section`
     .details_image {
       width: 60%;
       height: auto;
-      // @media screen and (max-width: ${({ theme }) => theme.fhd}) {
-      //   width: 80%;
-      // }
     }
 
     .details_description {
@@ -102,6 +143,7 @@ export default function Details() {
   const { purchasedCards, favoriteCards, isAuthenticated } = useAppSelector(
     (state) => state.project
   );
+
   const [buttonsState, setButtonsState] = useState<ButtonsStateProps>({
     isPurchaseAllowed: isAuthenticated,
     isFavoritesAllowed: isAuthenticated,
@@ -114,7 +156,7 @@ export default function Details() {
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
 
-  const navigateBack = (e: MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+  const navigateBack = (e: MouseEvent<HTMLDivElement | HTMLAnchorElement>) => {
     if (e.target === e.currentTarget) {
       navigation('..');
     }
@@ -153,7 +195,7 @@ export default function Details() {
       <StyledDetails onClick={navigateBack}>
         <div className={`details_wrapper`}>
           <div className={`details_sticky-wrapper`}>
-            <Button onClick={navigateBack} className={'details_close-btn'} />
+            <a onClick={navigateBack} className={'details_close-btn'} />
             <h2 className="details_title">{title}</h2>
             <img
               className="details_image"
@@ -166,26 +208,26 @@ export default function Details() {
             </p>
             <Prices {...{ prices, setButtonsState }} />
             <div className="details_buttons">
-              <Button
+              <button
                 onClick={purchaseButtonHandler}
-                buttonText={
-                  buttonsState.isPurchased && isAuthenticated
-                    ? 'В коллекции'
-                    : 'Приобрести'
-                }
-                isDisabled={
+                className={!isAuthenticated ? 'tooltip' : ''}
+                disabled={
                   !buttonsState.isPurchaseAllowed || buttonsState.isPurchased
                 }
-              />
-              <Button
-                isDisabled={!buttonsState.isFavoritesAllowed}
+              >
+                {buttonsState.isPurchased && isAuthenticated
+                  ? 'В коллекции'
+                  : 'Приобрести'}
+              </button>
+              <button
+                disabled={!buttonsState.isFavoritesAllowed}
                 onClick={addToFavoritesButtonHandler}
-                buttonText={
-                  buttonsState.isFavoriteAdded && isAuthenticated
-                    ? 'Удалить из избранного'
-                    : 'В избранное'
-                }
-              />
+                className={!isAuthenticated ? 'tooltip' : ''}
+              >
+                {buttonsState.isFavoriteAdded && isAuthenticated
+                  ? 'Удалить из избранного'
+                  : 'В избранное'}
+              </button>
             </div>
           </div>
         </div>

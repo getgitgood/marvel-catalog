@@ -14,6 +14,8 @@ import Details from './pages/DetailsPage';
 import UserCollections from './pages/UserCollections';
 import AuthPage from './pages/AuthPage';
 import PrivateRoute from './utils/PrivateRoute';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle, { theme } from './GlobalStyle';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,7 +54,10 @@ const store = setupStore();
 export default function App() {
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+        <GlobalStyle />
+      </ThemeProvider>
     </Provider>
   );
 }
