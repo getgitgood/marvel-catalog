@@ -39,6 +39,7 @@ export default function Pagination({
   const pageCount = Math.ceil(total / limit);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const newOffset = selected * limit;
     setItemsOffset(newOffset);
   };
