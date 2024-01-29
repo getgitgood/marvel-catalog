@@ -81,3 +81,18 @@ export type UserCollectionProps = {
 export type ErrorPageProps = {
   message?: string;
 };
+
+export type CardProps = {
+  cardData: Comic;
+};
+
+export type ImageWithFallbackProps = {
+  className?: string;
+  title?: string;
+  images: [
+    {
+      path?: string;
+      extension?: string;
+    }
+  ];
+};

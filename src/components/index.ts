@@ -12,6 +12,7 @@ import CardsSkeleton from './CardsSkeleton';
 import Footer from './Footer';
 import Pagination from './Pagination';
 import Form from './Form';
+import ImageWithFallback from './ImageWithFallback';
 
 export {
   Card,
@@ -20,6 +21,7 @@ export {
   FormComponent,
   CardsSkeleton,
   GlobalStyle,
+  ImageWithFallback,
   Form,
   Header,
   Input,

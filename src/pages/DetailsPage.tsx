@@ -1,9 +1,9 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import exitImg from '../assets/img/exit.svg';
-import { Prices } from '../components';
+import { ImageWithFallback, Prices } from '../components';
 import {
   addToFavoriteCards,
   addToPurchasedCards,
@@ -11,7 +11,15 @@ import {
 } from '../features/projectSlice';
 import { useAppDispatch, useAppSelector, useResults } from '../hooks';
 import { ButtonsStateProps } from '../types';
-import { getImageSrc } from '../utils/helpers';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const StyledDetails = styled.section`
   position: absolute;
@@ -23,6 +31,7 @@ const StyledDetails = styled.section`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.05);
+  animation: ${fadeIn} 0.5s ease-in-out;
 
   .details_wrapper {
     position: absolute;
@@ -189,18 +198,15 @@ export default function DetailsPage() {
 
   if (currentCard) {
     const { images, prices, title, description } = currentCard;
-    const imageSrc = getImageSrc(images);
-
     return (
       <StyledDetails onClick={navigateBack}>
         <div className={`details_wrapper`}>
           <div className={`details_sticky-wrapper`}>
             <a onClick={navigateBack} className={'details_close-btn'} />
             <h2 className="details_title">{title}</h2>
-            <img
-              className="details_image"
-              src={imageSrc}
-              alt={`${title} comic image`}
+            <ImageWithFallback
+              className={'details_image'}
+              {...{ images, title }}
             />
             <h3>Описание:</h3>
             <p className="details_description">

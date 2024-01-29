@@ -1,16 +1,13 @@
-import imageTemplate from '../assets/img/no_image.png';
-
-export function getImageSrc(
-  images: {
-    path?: string;
-    extension?: string;
-  }[]
-) {
+export function getImageSrc({
+  images
+}: {
+  images: [{ path?: string; extension?: string }];
+}) {
   try {
     const [{ path, extension }] = [...images];
     return `${path}.${extension}`;
   } catch {
-    return imageTemplate;
+    return '';
   }
 }
 

@@ -1,6 +1,16 @@
-import { styled } from 'styled-components';
+import { keyframes, styled } from 'styled-components';
 import { StyledContent, StyledGrid } from './Content';
 import { StyledCardWrapper } from './Card';
+
+const flash = keyframes`
+  from, 0%, 50%, 100% {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: 0;
+  }
+}`;
 
 const SkeletonCard = styled.div`
   padding: 0.5em;
@@ -11,7 +21,7 @@ const SkeletonCard = styled.div`
   box-shadow: 0 2px 5px 4px rgba(0, 0, 0, 0.5);
 
   background-color: rgba(0, 0, 0, 0.3);
-  animation: flash 3s ease-in infinite;
+  animation: ${flash} 3s ease-in infinite;
 
   @media screen and (max-width: ${({ theme }) => theme.fhd}) {
     max-width: 20em;
