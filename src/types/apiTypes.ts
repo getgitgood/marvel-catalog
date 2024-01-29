@@ -1,6 +1,3 @@
-import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-
 export type ApiResponse = {
   code: number;
   status: string;
@@ -27,10 +24,10 @@ export type RequestResults = {
 
 export type ContentProps = {
   data: RequestResults | undefined;
-  isError?: boolean;
-  error?: FetchBaseQueryError | SerializedError | undefined;
   isFetching?: boolean;
+  isError?: boolean;
   limit?: number;
+  notFoundMessage?: string;
 };
 
 export type ComicPrice = {
@@ -106,51 +103,8 @@ export type Comic = {
       extension: string;
     }
   ];
-  creators: {
-    available: number;
-    returned: number;
-    collectionURI: string;
-    items: [
-      {
-        resourceURI: string;
-        name: string;
-        role: string;
-      }
-    ];
-  };
-  characters: {
-    available: number;
-    returned: number;
-    collectionURI: string;
-    items: [
-      {
-        resourceURI: string;
-        name: string;
-        role: string;
-      }
-    ];
-  };
-  stories: {
-    available: number;
-    returned: number;
-    collectionURI: string;
-    items: [
-      {
-        resourceURI: string;
-        name: string;
-        type: string;
-      }
-    ];
-  };
-  events: {
-    available: number;
-    returned: number;
-    collectionURI: string;
-    items: [
-      {
-        resourceURI: string;
-        name: string;
-      }
-    ];
-  };
+};
+
+export type CustomError = {
+  message?: string;
 };

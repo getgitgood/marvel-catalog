@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
+const GlobalStyle = createGlobalStyle`
   @use url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
 
   * {
@@ -12,13 +12,13 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
     font-family: 'Roboto Condensed', sans-serif;
     color: ${({ theme }) => theme.white};
     height: 100%;
-    overflow: hidden auto;
-    margin-right: -5px;
+    // margin-right: -5px;
   }
   
   #root {
     height: 100%;
   }
+
   body {
     position: relative;
     background-color: ${({ theme }) => theme.blue};
@@ -30,17 +30,35 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
   }
 
   button {
+    appearance: none;
+    border: 0;
     cursor: pointer;
+    border-radius: 5px;
+    background: rgba(70, 118, 215, 1);
+    color: #fff;
+    padding: 0.3em 0.8em;
+    font-size: 16px;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
+    transition: background ease 0.2s;
+  
+    &:disabled {
+      background: grey;
+    }
+  
+    &:not(:disabled):hover {
+      background: rgba(70, 118, 215, 0.5);
+    }
   }
 
   main {
     position: relative;
     padding: 1em;
-    min-height: 100%;
+    min-height: calc(100% - 3em);
   }
 
   h1 {
-    font-size: 2em;
+    font-size: 1em;
+    display: none;
   }
 
   h2 {
@@ -57,9 +75,10 @@ const GlobalStyle = createGlobalStyle<{ $mobile?: boolean }>`
     transition: color 0.2s ease;
     text-decoration: none;
 
-    &:hover {
+    &:hover, active {
       color: #767676;
     }
+
     @media screen and (max-width: 550px) {
       font-size: 0.7em;
     }
@@ -90,8 +109,10 @@ export const theme = {
   black: '#000',
   grey: '#202020',
   hover: '#767676',
+  tooltipText: 'Необходима регистрация',
   white: '#fff',
   blue: '#303651',
+  golden: '#DAA520',
   lightgrey: '#504a4a',
   laptop: '1200px',
   mobile: '500px',

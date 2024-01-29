@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import imgURL from '../assets/img/marvel_logo.svg';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { updateUserStatus } from '../features/projectSlice';
 
@@ -10,11 +10,16 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   padding: 0.5em;
 
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 100;
   background-color: ${({ theme }) => theme.black};
 
+  @media (max-width: ${({ theme }) => theme.laptop}) {
+    font-size: 0.7em;
+  }
   .navigation {
     display: flex;
     justify-content: space-around;
@@ -46,6 +51,22 @@ const StyledHeader = styled.header`
       width: 100%;
       left: 0;
     }
+
+    &.active {
+      position: relative;
+      color: $color-light-s;
+      pointer-events: none;
+      &::after {
+        content: '';
+        left: 0;
+        position: absolute;
+        bottom: -6px;
+        display: block;
+        height: 3px;
+        width: 100%;
+        background: ${({ theme }) => theme.white};
+      }
+    }
   }
   .logo_link {
     line-height: 0;
@@ -62,40 +83,44 @@ const StyledHeader = styled.header`
 
 export default function Header() {
   const { isAuthenticated } = useAppSelector((state) => state.project);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const authClickHandler = () => {
     if (isAuthenticated) {
-      dispatch(updateUserStatus(null));
+      dispatch(updateUserStatus(false));
       navigate('/');
     } else {
       navigate('auth');
     }
   };
+
   return (
     <StyledHeader className="header">
-      <a className="logo_link" href="#">
+      <a className="logo_link" href="https://developer.marvel.com">
         <img className="logo_img" src={imgURL} alt="marvel logo" />
+        <h1>Каталог Комиксов Марвел</h1>
       </a>
       <nav className="navigation">
-        <Link to={'catalog'} className="link header_link">
+        <NavLink to={'catalog'} className="link header_link">
           Каталог
-        </Link>
+        </NavLink>
         {isAuthenticated && (
           <>
-            <Link to={'purchased'} className="link header_link">
+            <NavLink to={'purchased'} className="link header_link">
               Приобретённые
-            </Link>
-            <Link to={'favorites'} className="link header_link">
+            </NavLink>
+            <NavLink to={'favorites'} className="link header_link">
               Избранные
-            </Link>
+            </NavLink>
           </>
         )}
       </nav>
 
-      <a onClick={authClickHandler} className="signin">
+      <NavLink to={'#'} onClick={authClickHandler} className="signin">
         {!isAuthenticated ? 'Войти' : 'Выход'}
-      </a>
+      </NavLink>
     </StyledHeader>
   );
 }

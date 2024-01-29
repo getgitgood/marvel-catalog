@@ -28,7 +28,7 @@ export default function Prices({
     console.log(pricesValue);
     setButtonsState((prev) => ({
       ...prev,
-      isPurchaseDisabled: !pricesValue.length
+      isPurchaseAllowed: !!pricesValue.length && prev.isPurchaseAllowed
     }));
   }, [setButtonsState, pricesValue]);
 
