@@ -6,6 +6,10 @@ const StyledFooter = styled.footer`
   padding: 1.5em;
   display: flex;
   justify-content: center;
+
+  @media (max-width: ${({ theme }) => theme.laptop}) {
+    font-size: 0.6em;
+  }
 `;
 
 export default function Footer() {

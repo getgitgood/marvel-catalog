@@ -9,6 +9,9 @@ const StyledPagination = styled.nav`
   width: fit-content;
   align-self: center;
 
+  @media (max-width: ${({ theme }) => theme.laptop}) {
+    font-size: 0.8em;
+  }
   .pagination_wrapper {
     display: inline-flex;
     gap: 1em;
