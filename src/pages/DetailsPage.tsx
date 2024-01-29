@@ -208,17 +208,19 @@ export default function DetailsPage() {
             </p>
             <Prices {...{ prices, setButtonsState }} />
             <div className="details_buttons">
-              <button
-                onClick={purchaseButtonHandler}
-                className={!isAuthenticated ? 'tooltip' : ''}
-                disabled={
-                  !buttonsState.isPurchaseAllowed || buttonsState.isPurchased
-                }
-              >
-                {buttonsState.isPurchased && isAuthenticated
-                  ? 'В коллекции'
-                  : 'Приобрести'}
-              </button>
+              {isAuthenticated && (
+                <button
+                  onClick={purchaseButtonHandler}
+                  disabled={
+                    !buttonsState.isPurchaseAllowed || buttonsState.isPurchased
+                  }
+                >
+                  {buttonsState.isPurchased && isAuthenticated
+                    ? 'В коллекции'
+                    : 'Приобрести'}
+                </button>
+              )}
+
               <button
                 disabled={!buttonsState.isFavoritesAllowed}
                 onClick={addToFavoritesButtonHandler}

@@ -127,7 +127,7 @@ export const theme = {
   black: '#000',
   grey: '#202020',
   hover: '#767676',
-  tooltipText: 'Необходимо войти',
+  tooltipText: 'Необходима авторизация',
   white: '#fff',
   blue: '#303651',
   golden: '#DAA520',
