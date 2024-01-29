@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import { Comic } from '../types';
 import { Link } from 'react-router-dom';
-import getImageSrc from '../utils/getImageSrc';
+import { getImageSrc } from '../utils/helpers';
 
 export const StyledCardWrapper = styled.div`
   display: flex;

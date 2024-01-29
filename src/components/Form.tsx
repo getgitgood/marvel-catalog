@@ -1,14 +1,14 @@
-import { Form } from 'react-router-dom';
+import { Form as ReactForm } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { FormProps } from '../types';
 
-const StyledForm = styled(Form)`
+const StyledForm = styled(ReactForm)`
   display: flex;
   justify-content: center;
   gap: 0.5em;
 `;
 
-export default function FormComponent({
+export default function Form({
   children,
   onSubmit,
   autocomplete = 'on'

@@ -1,9 +1,9 @@
+import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { FormComponent, Input } from '../components';
-import { FormEvent, useState } from 'react';
-import { useAppDispatch } from '../hooks';
 import { updateUserStatus } from '../features/projectSlice';
-import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../hooks';
 
 const StyledAuth = styled.section`
   display: flex;
@@ -91,6 +91,7 @@ export default function AuthPage() {
             inputId={passwordInputId}
             labelText={passwordLabel}
             placeholder={passwordPlaceholder}
+            inputType="password"
           />
           <button>{buttonText}</button>
         </FormComponent>

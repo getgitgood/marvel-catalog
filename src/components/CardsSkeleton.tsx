@@ -12,6 +12,7 @@ const SkeletonCard = styled.div`
 
   background-color: rgba(0, 0, 0, 0.3);
   animation: flash 3s ease-in infinite;
+
   @media screen and (max-width: ${({ theme }) => theme.fhd}) {
     max-width: 20em;
   }
