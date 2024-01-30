@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { CardsSkeleton, Input, Pagination } from '../components';
+import { Input, Pagination } from '../components';
 import { Content, Form } from '../components';
 import { useGetComicsByTitleQuery } from '../features/apiSlice';
 import { PaginationStateProps } from '../types';
@@ -20,41 +20,35 @@ export default function CatalogPage() {
     offset
   });
 
-  const notFoundMessage = 'По вашему запросу ничего не найдено!';
+  const noResultsMessage = 'По вашему запросу ничего не найдено!';
 
-  const [inputId, placeholder, buttonText] = [
-    'search',
-    'Название комикса',
-    'Найти'
-  ];
+  const [id, placeholder, buttonText] = ['search', 'Название комикса', 'Найти'];
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { elements } = e.currentTarget;
-    const { value } = elements.namedItem(inputId) as HTMLInputElement;
+    const { value } = elements.namedItem(id) as HTMLInputElement;
     setTitle(value);
   };
 
   return (
     <>
       <Form onSubmit={onSubmit}>
-        <Input {...{ inputId, placeholder }} />
+        <Input {...{ id, placeholder }} />
         <button>{buttonText}</button>
       </Form>
-      {isFetching ? (
-        <CardsSkeleton cardsNumber={limit} />
-      ) : (
-        <Content
-          {...{
-            data,
-            isFetching,
-            limit,
-            isError,
-            setPaginationState,
-            notFoundMessage
-          }}
-        />
-      )}
+
+      <Content
+        {...{
+          data,
+          isFetching,
+          limit,
+          isError,
+          setPaginationState,
+          noResultsMessage
+        }}
+      />
+
       {data?.pagination ? (
         <Pagination
           key={title}

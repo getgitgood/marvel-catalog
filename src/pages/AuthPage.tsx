@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { FormComponent, Input } from '../components';
+import { Button, FormComponent, Input } from '../components';
 import { updateUserStatus } from '../features/projectSlice';
 import { useAppDispatch } from '../hooks';
 
@@ -83,17 +83,17 @@ export default function AuthPage() {
       <div className="form_wrapper">
         <FormComponent onSubmit={onSubmit}>
           <Input
-            inputId={usernameInputId}
+            id={usernameInputId}
             labelText={usernameLabel}
             placeholder={usernamePlaceholder}
           />
           <Input
-            inputId={passwordInputId}
+            id={passwordInputId}
             labelText={passwordLabel}
             placeholder={passwordPlaceholder}
-            inputType="password"
+            type="password"
           />
-          <button>{buttonText}</button>
+          <Button buttonText={buttonText} />
         </FormComponent>
         {error && <p>{error.message}</p>}
       </div>

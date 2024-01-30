@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import imgURL from '../assets/img/marvel_logo.svg';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { updateUserStatus } from '../features/projectSlice';
 
@@ -9,7 +9,6 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0.5em;
-
   position: fixed;
   top: 0;
   left: 0;
@@ -54,7 +53,7 @@ const StyledHeader = styled.header`
 
     &.active {
       position: relative;
-      color: $color-light-s;
+      color: #767676;
       pointer-events: none;
       &::after {
         content: '';
@@ -98,10 +97,10 @@ export default function Header() {
 
   return (
     <StyledHeader className="header">
-      <a className="logo_link" href="https://developer.marvel.com">
+      <Link className="logo_link" to={'https://developer.marvel.com'}>
         <img className="logo_img" src={imgURL} alt="marvel logo" />
         <h1>Каталог Комиксов Марвел</h1>
-      </a>
+      </Link>
       <nav className="navigation">
         <NavLink to={'catalog'} className="link header_link">
           Каталог

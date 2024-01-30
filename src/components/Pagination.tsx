@@ -12,19 +12,24 @@ const StyledPagination = styled.nav`
   @media (max-width: ${({ theme }) => theme.laptop}) {
     font-size: 0.8em;
   }
+
   .pagination_wrapper {
     display: inline-flex;
     gap: 1em;
   }
+
   li {
     > a {
       padding: 0.5em;
-      background: ${({ theme }) => theme.black};
+      color: ${({ theme }) => theme.black};
+      border-radius: ${({ theme }) => theme.borderRadius};
+      background: ${({ theme }) => theme.golden};
     }
   }
 
   .selected > a {
-    background-color: red;
+    color: ${({ theme }) => theme.white};
+    background: ${({ theme }) => theme.lightgrey};
   }
 `;
 

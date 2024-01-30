@@ -28,7 +28,7 @@ export default function UserCollectionPage({
     purchasedCards.slice(offset, offset + limit)
   );
 
-  const notFoundMessage = 'В этой коллекции пока ничего нет!';
+  const noResultsMessage = 'В этой коллекции пока ничего нет!';
 
   useEffect(() => {
     const filteredItems = purchasedCards.filter(({ title }) =>
@@ -61,7 +61,7 @@ export default function UserCollectionPage({
           }}
         />
       </Form>
-      <Content {...{ data, limit, setPaginationState, notFoundMessage }} />
+      <Content {...{ data, limit, setPaginationState, noResultsMessage }} />
       <Pagination
         key={comicsTitle}
         pagination={data.pagination}

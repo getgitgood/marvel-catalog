@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-import ErrorPage from '../pages/ErrorPage';
+import ErrorPage from '../pages/InfoPage';
 
 export default class ErrorBoundary extends Component<{ children: ReactNode }> {
   state = {

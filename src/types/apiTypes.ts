@@ -33,7 +33,7 @@ export type ContentProps = {
   isFetching?: boolean;
   isError?: boolean;
   limit?: number;
-  notFoundMessage?: string;
+  noResultsMessage?: string;
 };
 
 export type ComicPrice = {
@@ -109,8 +109,4 @@ export type Comic = {
       extension: string;
     }
   ];
-};
-
-export type CustomError = {
-  message?: string;
 };

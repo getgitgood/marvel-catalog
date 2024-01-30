@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
-const loading = keyframes`    
+const spin = keyframes`    
   0% {
     transform: rotate(0deg);
   }
@@ -35,7 +35,7 @@ const StyledLoader = styled.div`
     border: 0.2em solid transparent;
     border-top-color: currentcolor;
     border-radius: 50%;
-    animation: 1s ${loading} linear infinite;
+    animation: 1s ${spin} linear infinite;
     &:before {
       content: '';
       display: block;
@@ -50,6 +50,7 @@ const StyledLoader = styled.div`
     }
   }
 `;
+
 export default function Loader() {
   return (
     <StyledLoader>

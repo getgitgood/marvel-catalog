@@ -3,11 +3,8 @@ import { getImageSrc } from '../utils/helpers';
 import { ImageWithFallbackProps } from '../types';
 import imageTemplate from '../assets/img/no_image.png';
 
-export default function ImageWithFallback({
-  images,
-  title,
-  className
-}: ImageWithFallbackProps) {
+export default function ImageWithFallback(props: ImageWithFallbackProps) {
+  const { images, title, ...restProps } = props;
   const imageSrc = getImageSrc({ images });
   const [currentImageSrc, setCurrentImageSrc] = useState(imageSrc);
 
@@ -17,10 +14,10 @@ export default function ImageWithFallback({
 
   return (
     <img
-      className={className}
       src={currentImageSrc}
       alt={`${title} comic image`}
       onError={onImageError}
+      {...restProps}
     />
   );
 }

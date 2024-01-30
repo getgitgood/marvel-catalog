@@ -2,18 +2,8 @@ import { styled } from 'styled-components';
 import { CardProps } from '../types';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '.';
-import { MouseEvent, useState } from 'react';
 
-export const StyledCardWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-export type StyledCardProps = {
-  $cardMoveDirection: number;
-};
-
-export const StyledCard = styled(Link)<StyledCardProps>`
+export const StyledCard = styled(Link)<Pick<CardProps, '$cardMoveDirection'>>`
   padding: 0.5em;
   max-width: 25em;
   border-radius: 5px;
@@ -27,12 +17,14 @@ export const StyledCard = styled(Link)<StyledCardProps>`
     transform: perspective(1000px)
       rotateY(${(props) => props.$cardMoveDirection * 10}deg);
   }
-  .content_wrapper {
+
+  .card_wrapper {
     position: relative;
     display: inline-block;
+    height: 100%;
   }
 
-  .not_in_stoke {
+  .card_not-in-stoke {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -67,32 +59,17 @@ export const StyledCard = styled(Link)<StyledCardProps>`
   }
 `;
 
-export default function Card({ cardData }: CardProps) {
-  const { images, id, title, prices } = cardData;
-  const [cardMoveDirection, setCardMoveDirection] = useState(1);
+export default function Card(props: CardProps) {
+  const { cardData, ...restProps } = props;
+  const { images, title, prices } = cardData;
   const isInStoke = prices.some(({ price }) => price > 0);
 
-  const handleMouseHover = (e: MouseEvent<HTMLAnchorElement>) => {
-    const { clientX, currentTarget } = e;
-    const { left, width } = currentTarget.getBoundingClientRect();
-    const mouseX = clientX - left;
-    const newDirection = mouseX > width / 2 ? 1 : -1;
-    setCardMoveDirection(newDirection);
-  };
-
   return (
-    <StyledCardWrapper>
-      <StyledCard
-        className={'card_link'}
-        to={String(id)}
-        onMouseMove={(e) => handleMouseHover(e)}
-        $cardMoveDirection={cardMoveDirection}
-      >
-        <div className="content_wrapper">
-          {!isInStoke && <div className="not_in_stoke" />}
-          <ImageWithFallback className={'card_image'} {...{ title, images }} />
-        </div>
-      </StyledCard>
-    </StyledCardWrapper>
+    <StyledCard {...restProps}>
+      <div className="card_wrapper">
+        {!isInStoke && <div className="card_not-in-stoke" />}
+        <ImageWithFallback className={'card_image'} {...{ title, images }} />
+      </div>
+    </StyledCard>
   );
 }
