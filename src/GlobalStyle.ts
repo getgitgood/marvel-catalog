@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     position: relative;
+    scroll-margin-top: 5rem;
     background-color: ${({ theme }) => theme.blue};
     height: 100%;
     overflow-x: hidden;
@@ -68,32 +69,13 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
-  .error_title {
-    font-size: 4rem;
-  }
-
-  .error_message {
-    font-size: 2rem;
-  }
-
-  .error_description {
-    font-size: 3rem;
-    text-decoration: underline;
-  }
-
-  .home_button {
-    padding: 2rem;
-    font-size: 3rem;
-    background-color: ${({ theme }) => theme.red};
-  }
-
   a {
     cursor: pointer;
     color: #fff;
     transition: color 0.2s ease;
     text-decoration: none;
 
-    &:hover, active {
+    &:hover {
       color: #767676;
     }
 

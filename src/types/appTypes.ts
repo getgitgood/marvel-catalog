@@ -1,28 +1,17 @@
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  MouseEvent,
-  FormEvent
-} from 'react';
+import { Dispatch, MouseEvent, SetStateAction } from 'react';
 import { Comic, ComicPrice, PaginationInfo } from './apiTypes';
-
-export type PrivateRouteProps = {
-  children: ReactNode;
-};
-
-export type ButtonProps = {
-  buttonText?: string;
-  buttonType?: 'button' | 'submit' | 'reset' | undefined;
-  isDisabled?: boolean;
-  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
-  className?: string;
-  onMouseLeave?: () => void;
-  onMouseOver?: () => void;
-};
+import { LinkProps } from 'react-router-dom';
 
 export type PricesProps<T> = {
   prices: ComicPrice[];
+  setButtonsState: Dispatch<SetStateAction<T>>;
+};
+
+export type DetailsProps<T> = {
+  currentCard: Comic;
+  buttonsState: ButtonsStateProps;
+  isAuthenticated: boolean;
+  navigateBack: (e: MouseEvent<HTMLDivElement | HTMLAnchorElement>) => void;
   setButtonsState: Dispatch<SetStateAction<T>>;
 };
 
@@ -33,29 +22,19 @@ export type ButtonsStateProps = {
   isPurchased: boolean;
 };
 
-export type InputProps = {
-  inputId: string;
-  setComicsTitle?: (value: string) => void;
-  placeholder?: string;
-  inputType?: string;
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText?: string;
-};
+}
 
 export type PaginationProps<T> = {
   pagination: PaginationInfo;
   setPaginationState: Dispatch<SetStateAction<T>>;
 };
 
-export type LabelProps = {
-  htmlFor: string;
-  labelText?: string;
-};
-
-export type FormProps = {
-  children: ReactNode;
-  autocomplete?: string;
-  onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
-};
+export interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
+  method?: string | undefined;
+}
 
 export interface ProjectSlice {
   isAuthenticated: boolean;
@@ -63,10 +42,6 @@ export interface ProjectSlice {
   favoriteCards: Comic[];
   purchasedCards: Comic[];
 }
-
-export type NoResultsPageProps = {
-  notFoundMessage?: string;
-};
 
 export type PaginationStateProps = {
   limit: number;
@@ -78,6 +53,33 @@ export type UserCollectionProps = {
   collectionName: string;
 };
 
-export type ErrorPageProps = {
+export type InfoPageProps = {
+  isError?: boolean;
   message?: string;
+};
+
+export interface CardProps extends LinkProps {
+  cardData: Comic;
+  $cardMoveDirection: number;
+}
+
+export interface ImageWithFallbackProps
+  extends React.ImgHTMLAttributes<HTMLImageElement> {
+  className?: string;
+  title?: string;
+  images: [
+    {
+      path?: string;
+      extension?: string;
+    }
+  ];
+}
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  buttonText?: string;
+}
+
+export type CardsSkeletonProps = {
+  limit?: number;
 };

@@ -8,6 +8,7 @@ const Main = styled.main`
   margin-top: 3em;
   flex-direction: column;
   justify-content: center;
+
   @media screen and (max-width: ${({ theme }) => theme.laptop}) {
     margin-top: 1.8em;
   }
@@ -20,7 +21,7 @@ export default function MainContent() {
   return (
     <>
       <Header />
-      <Main className="main">
+      <Main>
         <Outlet />
       </Main>
       <Footer />

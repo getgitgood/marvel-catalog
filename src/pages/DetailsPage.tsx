@@ -1,17 +1,20 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import exitImg from '../assets/img/exit.svg';
-import { Prices } from '../components';
-import {
-  addToFavoriteCards,
-  addToPurchasedCards,
-  removeFromFavoriteCards
-} from '../features/projectSlice';
-import { useAppDispatch, useAppSelector, useResults } from '../hooks';
+import { Details } from '../components';
+import { useAppSelector, useResults } from '../hooks';
 import { ButtonsStateProps } from '../types';
-import { getImageSrc } from '../utils/helpers';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const StyledDetails = styled.section`
   position: absolute;
@@ -23,43 +26,19 @@ const StyledDetails = styled.section`
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.05);
+  animation: ${fadeIn} 0.5s ease-in-out;
 
-  .details_wrapper {
-    position: absolute;
-    background: ${({ theme }) => theme.golden};
-    color: ${({ theme }) => theme.black};
-    top: 0;
-    right: 0;
-    width: 30%;
-    height: 100%;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-
-    @media only screen and (max-width: ${({ theme }) => theme.desktop}) {
-      width: 40%;
-    }
-
-    @media only screen and (max-width: ${({ theme }) => theme.laptop}) {
-      width: 60%;
-    }
-
-    @media only screen and (max-width: ${({ theme }) => theme.mobile}) {
-      width: 100%;
-    }
-  }
-
-  .details_close-btn {
+  .close-btn {
     position: absolute;
     z-index: 100;
     cursor: pointer;
-    width: 2em;
-    height: 2em;
+    width: 2.5em;
+    height: 2.5em;
     background: no-repeat url(${exitImg});
     background-size: 100%;
     align-self: flex-end;
     &:hover {
-      background-color: none;
+      background-color: initial;
     }
   }
 
@@ -97,43 +76,6 @@ const StyledDetails = styled.section`
     transition: opacity 0.3s;
     pointer-events: none;
   }
-
-  .details_sticky-wrapper {
-    position: sticky;
-    top: 0;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    padding: 3.5em 3em;
-    width: 100%;
-    overflow-y: auto;
-
-    @media only screen and (max-width: ${({ theme }) => theme.laptop}) {
-      padding: 1.5em 1em;
-    }
-
-    .details_title {
-      padding: 0 1em;
-    }
-
-    .details_image {
-      width: 60%;
-      height: auto;
-    }
-
-    .details_description {
-      text-align: justify;
-    }
-
-    .details_buttons {
-      display: inline-flex;
-      gap: 0.5em;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
 `;
 
 export default function DetailsPage() {
@@ -153,23 +95,7 @@ export default function DetailsPage() {
 
   const currentCard = results.find((card) => card.id === Number(id));
 
-  const dispatch = useAppDispatch();
   const navigation = useNavigate();
-
-  const navigateBack = (e: MouseEvent<HTMLDivElement | HTMLAnchorElement>) => {
-    if (e.target === e.currentTarget) {
-      navigation('..');
-    }
-  };
-
-  const purchaseButtonHandler = () => {
-    dispatch(addToPurchasedCards(currentCard));
-    setButtonsState((prev) => ({
-      ...prev,
-      isPurchased: true,
-      isPurchaseAllowed: false
-    }));
-  };
 
   useEffect(() => {
     setButtonsState((prev) => ({
@@ -179,60 +105,24 @@ export default function DetailsPage() {
     }));
   }, [id, favoriteCards, purchasedCards]);
 
-  const addToFavoritesButtonHandler = () => {
-    if (!buttonsState.isFavoriteAdded) {
-      dispatch(addToFavoriteCards(currentCard));
-    } else {
-      dispatch(removeFromFavoriteCards(currentCard));
+  const navigateBack = (e: MouseEvent<HTMLDivElement | HTMLAnchorElement>) => {
+    if (e.target === e.currentTarget) {
+      navigation('..');
     }
   };
 
   if (currentCard) {
-    const { images, prices, title, description } = currentCard;
-    const imageSrc = getImageSrc(images);
-
     return (
       <StyledDetails onClick={navigateBack}>
-        <div className={`details_wrapper`}>
-          <div className={`details_sticky-wrapper`}>
-            <a onClick={navigateBack} className={'details_close-btn'} />
-            <h2 className="details_title">{title}</h2>
-            <img
-              className="details_image"
-              src={imageSrc}
-              alt={`${title} comic image`}
-            />
-            <h3>Описание:</h3>
-            <p className="details_description">
-              {description || 'Описание не найдено'}
-            </p>
-            <Prices {...{ prices, setButtonsState }} />
-            <div className="details_buttons">
-              {isAuthenticated && (
-                <button
-                  onClick={purchaseButtonHandler}
-                  disabled={
-                    !buttonsState.isPurchaseAllowed || buttonsState.isPurchased
-                  }
-                >
-                  {buttonsState.isPurchased && isAuthenticated
-                    ? 'В коллекции'
-                    : 'Приобрести'}
-                </button>
-              )}
-
-              <button
-                disabled={!buttonsState.isFavoritesAllowed}
-                onClick={addToFavoritesButtonHandler}
-                className={!isAuthenticated ? 'tooltip' : ''}
-              >
-                {buttonsState.isFavoriteAdded && isAuthenticated
-                  ? 'Удалить из избранного'
-                  : 'В избранное'}
-              </button>
-            </div>
-          </div>
-        </div>
+        <Details
+          {...{
+            setButtonsState,
+            currentCard,
+            buttonsState,
+            isAuthenticated,
+            navigateBack
+          }}
+        />
       </StyledDetails>
     );
   }

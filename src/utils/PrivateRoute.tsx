@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
-import { PrivateRouteProps } from '../types';
+import { PropsWithChildren, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useAppSelector } from '../hooks';
 
-export default function PrivateRoute({ children }: PrivateRouteProps) {
+export default function PrivateRoute({ children }: PropsWithChildren) {
   const { isAuthenticated } = useAppSelector((state) => state.project);
   const navigate = useNavigate();
 

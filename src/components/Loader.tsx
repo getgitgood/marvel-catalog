@@ -1,4 +1,12 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const spin = keyframes`    
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }`;
 
 const StyledLoader = styled.div`
   display: flex;
@@ -27,7 +35,7 @@ const StyledLoader = styled.div`
     border: 0.2em solid transparent;
     border-top-color: currentcolor;
     border-radius: 50%;
-    animation: 1s loading linear infinite;
+    animation: 1s ${spin} linear infinite;
     &:before {
       content: '';
       display: block;
@@ -41,16 +49,8 @@ const StyledLoader = styled.div`
       opacity: 0.5;
     }
   }
-
-  @keyframes loading {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
 `;
+
 export default function Loader() {
   return (
     <StyledLoader>

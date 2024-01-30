@@ -12,24 +12,12 @@ const StyledInput = styled.input`
   border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
-export default function Input({
-  inputId,
-  placeholder,
-  inputType = 'text',
-  labelText = '',
-  setComicsTitle
-}: InputProps) {
+export default function Input(props: InputProps) {
+  const { labelText, id, ...restProps } = props;
   return (
-    <StyledLabel htmlFor={inputId}>
+    <StyledLabel htmlFor={id}>
       {labelText}
-      <StyledInput
-        onChange={
-          setComicsTitle ? (e) => setComicsTitle(e.target.value) : undefined
-        }
-        id={inputId}
-        placeholder={placeholder}
-        type={inputType}
-      />
+      <StyledInput id={id} {...restProps} />
     </StyledLabel>
   );
 }

@@ -11,8 +11,7 @@ import {
   DetailsPage,
   AuthPage,
   UserCollectionPage,
-  NotFoundPage,
-  ErrorPage
+  InfoPage
 } from './pages';
 
 import { Provider } from 'react-redux';
@@ -24,7 +23,11 @@ import { MainContent } from './components';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<MainContent />} errorElement={<ErrorPage />}>
+    <Route
+      path="/"
+      element={<MainContent />}
+      errorElement={<InfoPage isError={true} />}
+    >
       <Route index element={<Navigate to={'catalog'} replace />} />
       <Route path="auth" element={<AuthPage />} />
       <Route path="catalog" element={<CatalogPage />}>
@@ -50,7 +53,10 @@ const router = createBrowserRouter(
       >
         <Route path=":id" element={<DetailsPage />} />
       </Route>
-      <Route path="/*" element={<NotFoundPage />} />
+      <Route
+        path="/*"
+        element={<InfoPage isError={true} message={'Страницы не существует'} />}
+      />
     </Route>
   )
 );
